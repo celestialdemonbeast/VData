@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,28 +8,34 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Noto+Sans+JP:wght@400;700&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --arissa-primary: #00d2ff;
             --arissa-secondary: #0072ff;
             --arissa-bg: #f8fafc;
         }
+
         body {
             font-family: 'Inter', 'Noto Sans JP', sans-serif;
             background-color: var(--arissa-bg);
             color: #1a202c;
             overflow-x: hidden;
         }
+
         .text-gradient {
             background: linear-gradient(135deg, var(--arissa-primary), var(--arissa-secondary));
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+
         .bg-gradient-custom {
             background: linear-gradient(135deg, rgba(0, 210, 255, 0.1), rgba(0, 114, 255, 0.1));
         }
+
         .character-bg-glow {
             position: absolute;
             top: 50%;
@@ -39,28 +46,35 @@
             background: radial-gradient(circle, rgba(0, 210, 255, 0.15) 0%, transparent 70%);
             z-index: -1;
         }
+
         .outfit-thumb {
             transition: all 0.3s ease;
             cursor: pointer;
             border: 2px solid transparent;
         }
-        .outfit-thumb:hover, .outfit-thumb.active {
+
+        .outfit-thumb:hover,
+        .outfit-thumb.active {
             border-color: var(--arissa-primary);
             transform: scale(1.1);
         }
+
         .social-btn {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
         .social-btn:hover {
             background: var(--arissa-primary);
             color: white;
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0, 210, 255, 0.3);
         }
+
         .section-title {
             letter-spacing: 0.2em;
             text-transform: uppercase;
         }
+
         .geometric-shape {
             position: absolute;
             opacity: 0.05;
@@ -68,12 +82,13 @@
         }
     </style>
 </head>
+
 <body class="antialiased">
 
     <!-- Header / Nav -->
     <header class="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="text-2xl font-extrabold tracking-tighter text-gradient">ARISSA.</div>
+            <div class="text-2xl font-extrabold tracking-tighter text-gradient">ARISSA CHU</div>
             <div class="hidden md:flex space-x-8 text-sm font-semibold uppercase tracking-widest text-gray-600">
                 <a href="#profile" class="hover:text-cyan-500 transition">Profile</a>
                 <a href="#videos" class="hover:text-cyan-500 transition">Videos</a>
@@ -81,14 +96,17 @@
                 <a href="#qa" class="hover:text-cyan-500 transition">Q&A</a>
             </div>
             <button class="md:hidden text-gray-600">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7">
+                    </path>
+                </svg>
             </button>
         </nav>
     </header>
 
     <!-- Main Content -->
     <main class="pt-24">
-        
+
         <!-- Hero Section -->
         <section id="profile" class="relative min-h-screen flex items-center overflow-hidden">
             <!-- Decorative Shapes -->
@@ -96,17 +114,21 @@
             <div class="geometric-shape bottom-10 right-10 w-96 h-96 bg-blue-500 rounded-full blur-[120px]"></div>
 
             <div class="container mx-auto px-6 flex flex-col lg:flex-row items-center gap-12">
-                
+
                 <!-- Left: Outfit Selectors (Vertical) -->
                 <div class="hidden lg:flex flex-col gap-4 z-10">
-                    <div class="outfit-thumb active rounded-full p-1 bg-white shadow-lg overflow-hidden w-16 h-16 border-2 border-cyan-400">
-                        <img src="https://via.placeholder.com/150/00d2ff/ffffff?text=O1" alt="Outfit 1" class="rounded-full">
+                    <div
+                        class="outfit-thumb active rounded-full p-1 bg-white shadow-lg overflow-hidden w-16 h-16 border-2 border-cyan-400">
+                        <img src="https://via.placeholder.com/150/00d2ff/ffffff?text=O1" alt="Outfit 1"
+                            class="rounded-full">
                     </div>
                     <div class="outfit-thumb rounded-full p-1 bg-white shadow-lg overflow-hidden w-16 h-16">
-                        <img src="https://via.placeholder.com/150/0072ff/ffffff?text=O2" alt="Outfit 2" class="rounded-full">
+                        <img src="https://via.placeholder.com/150/0072ff/ffffff?text=O2" alt="Outfit 2"
+                            class="rounded-full">
                     </div>
                     <div class="outfit-thumb rounded-full p-1 bg-white shadow-lg overflow-hidden w-16 h-16">
-                        <img src="https://via.placeholder.com/150/333333/ffffff?text=O3" alt="Outfit 3" class="rounded-full">
+                        <img src="https://via.placeholder.com/150/333333/ffffff?text=O3" alt="Outfit 3"
+                            class="rounded-full">
                     </div>
                 </div>
 
@@ -114,13 +136,11 @@
                 <div class="relative flex-1 flex justify-center items-center z-0">
                     <div class="character-bg-glow"></div>
                     <!-- Large Faded BG Image -->
-                    <img src="assets/arissa_full_body.png" 
-                         alt="Arissa Background" 
-                         class="absolute w-[120%] h-auto opacity-10 blur-sm scale-110 pointer-events-none">
+                    <img src="assets/arissa_full_body.png" alt="Arissa Background"
+                        class="absolute w-[120%] h-auto opacity-10 blur-sm scale-110 pointer-events-none">
                     <!-- Main Image -->
-                    <img src="assets/arissa_full_body.png" 
-                         alt="Arissa" 
-                         class="relative max-w-full h-auto drop-shadow-2xl animate-fade-in transition-transform duration-700 hover:scale-105">
+                    <img src="assets/arissa_full_body.png" alt="Arissa"
+                        class="relative max-w-full h-auto drop-shadow-2xl animate-fade-in transition-transform duration-700 hover:scale-105">
                 </div>
 
                 <!-- Right: Bio Info -->
@@ -130,27 +150,41 @@
                         <span>/</span>
                         <a href="#">Talents</a>
                         <span>/</span>
-                        <span class="text-gray-600">Arissa</span>
+                        <span class="text-gray-600">Arissa Chu</span>
                     </nav>
-                    
-                    <h1 class="text-6xl md:text-8xl font-black text-gray-900 mb-2 leading-none">Arissa</h1>
+
+                    <h1 class="text-6xl md:text-8xl font-black text-gray-900 mb-2 leading-none">Arissa Chu</h1>
                     <p class="text-xl font-bold text-cyan-600 mb-8 italic tracking-wide">アリッサ</p>
-                    
+
                     <div class="bg-white/40 backdrop-blur-sm p-6 rounded-2xl border border-white/60 shadow-xl mb-8">
-                        <p class="text-2xl font-bold text-gray-800 mb-4">"Exploring the digital frontier, one melody at a time."</p>
+                        <p class="text-2xl font-bold text-gray-800 mb-4">"Exploring the digital frontier, one melody at
+                            a time."</p>
                         <p class="text-gray-600 leading-relaxed text-lg">
-                            A virtual traveler from the Neo-Aether realm. Arissa arrived in the human world seeking the perfect harmony between technology and emotion. With her silver hair reflecting the data streams of her home, she captivates her audience through high-energy gaming and soulful vocal performances.
+                            A virtual traveler from the Neo-Aether realm. Arissa arrived in the human world seeking the
+                            perfect harmony between technology and emotion. With her silver hair reflecting the data
+                            streams of her home, she captivates her audience through high-energy gaming and soulful
+                            vocal performances.
                         </p>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <a href="#" class="social-btn flex items-center justify-between px-6 py-4 rounded-xl border-2 border-cyan-400 text-cyan-600 font-bold group">
+                        <a href="#"
+                            class="social-btn flex items-center justify-between px-6 py-4 rounded-xl border-2 border-cyan-400 text-cyan-600 font-bold group">
                             <span>YouTube</span>
-                            <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                            <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
                         </a>
-                        <a href="#" class="social-btn flex items-center justify-between px-6 py-4 rounded-xl border-2 border-cyan-400 text-cyan-600 font-bold group">
+                        <a href="#"
+                            class="social-btn flex items-center justify-between px-6 py-4 rounded-xl border-2 border-cyan-400 text-cyan-600 font-bold group">
                             <span>Twitter (X)</span>
-                            <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                            <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
                         </a>
                     </div>
                 </div>
@@ -164,36 +198,44 @@
                     <h2 class="section-title text-4xl md:text-6xl font-black text-center mb-4">Recommended Videos</h2>
                     <div class="w-24 h-1 bg-gradient-to-r from-cyan-400 to-blue-500"></div>
                 </div>
-                
+
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <!-- Video Card 1 -->
                     <div class="group cursor-pointer">
                         <div class="relative overflow-hidden rounded-2xl shadow-lg mb-4">
-                            <img src="https://via.placeholder.com/600x338/111/fff?text=Singing+Stream" alt="Video 1" class="transition-transform duration-500 group-hover:scale-110">
+                            <img src="https://via.placeholder.com/600x338/111/fff?text=Singing+Stream" alt="Video 1"
+                                class="transition-transform duration-500 group-hover:scale-110">
                             <div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors"></div>
                         </div>
-                        <h3 class="text-xl font-bold group-hover:text-cyan-500 transition">【SINGING】Midnight Echo - Original Song Release</h3>
+                        <h3 class="text-xl font-bold group-hover:text-cyan-500 transition">【SINGING】Midnight Echo -
+                            Original Song Release</h3>
                     </div>
                     <!-- Video Card 2 -->
                     <div class="group cursor-pointer">
                         <div class="relative overflow-hidden rounded-2xl shadow-lg mb-4">
-                            <img src="https://via.placeholder.com/600x338/222/fff?text=Gaming+Highlights" alt="Video 2" class="transition-transform duration-500 group-hover:scale-110">
+                            <img src="https://via.placeholder.com/600x338/222/fff?text=Gaming+Highlights" alt="Video 2"
+                                class="transition-transform duration-500 group-hover:scale-110">
                             <div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors"></div>
                         </div>
-                        <h3 class="text-xl font-bold group-hover:text-cyan-500 transition">【GAMEPLAY】Neo-Cities: Top Rank Challenge!</h3>
+                        <h3 class="text-xl font-bold group-hover:text-cyan-500 transition">【GAMEPLAY】Neo-Cities: Top
+                            Rank Challenge!</h3>
                     </div>
                     <!-- Video Card 3 -->
                     <div class="group cursor-pointer">
                         <div class="relative overflow-hidden rounded-2xl shadow-lg mb-4">
-                            <img src="https://via.placeholder.com/600x338/333/fff?text=Collab+Stream" alt="Video 3" class="transition-transform duration-500 group-hover:scale-110">
+                            <img src="https://via.placeholder.com/600x338/333/fff?text=Collab+Stream" alt="Video 3"
+                                class="transition-transform duration-500 group-hover:scale-110">
                             <div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors"></div>
                         </div>
-                        <h3 class="text-xl font-bold group-hover:text-cyan-500 transition">【OFFCOLLAB】Cooking Disaster with Friends!</h3>
+                        <h3 class="text-xl font-bold group-hover:text-cyan-500 transition">【OFFCOLLAB】Cooking Disaster
+                            with Friends!</h3>
                     </div>
                 </div>
-                
+
                 <div class="mt-12 text-center">
-                    <button class="px-12 py-4 bg-gray-900 text-white font-bold rounded-full hover:bg-cyan-500 transition-colors duration-300">VIEW ALL VIDEOS</button>
+                    <button
+                        class="px-12 py-4 bg-gray-900 text-white font-bold rounded-full hover:bg-cyan-500 transition-colors duration-300">VIEW
+                        ALL VIDEOS</button>
                 </div>
             </div>
         </section>
@@ -209,33 +251,39 @@
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
                     <!-- Left Stats -->
                     <div class="space-y-4">
-                        <div class="flex justify-between items-center p-6 bg-white rounded-xl shadow-sm border-l-4 border-cyan-400">
+                        <div
+                            class="flex justify-between items-center p-6 bg-white rounded-xl shadow-sm border-l-4 border-cyan-400">
                             <span class="text-gray-400 font-bold uppercase text-sm tracking-widest">Birthday</span>
-                            <span class="text-xl font-extrabold">December 15</span>
+                            <span class="text-xl font-extrabold">September 19</span>
                         </div>
-                        <div class="flex justify-between items-center p-6 bg-white rounded-xl shadow-sm border-l-4 border-cyan-400">
+                        <div
+                            class="flex justify-between items-center p-6 bg-white rounded-xl shadow-sm border-l-4 border-cyan-400">
                             <span class="text-gray-400 font-bold uppercase text-sm tracking-widest">Debut Stream</span>
-                            <span class="text-xl font-extrabold">January 10, 2024</span>
+                            <span class="text-xl font-extrabold">2 April, 2024</span>
                         </div>
-                        <div class="flex justify-between items-center p-6 bg-white rounded-xl shadow-sm border-l-4 border-cyan-400">
+                        <div
+                            class="flex justify-between items-center p-6 bg-white rounded-xl shadow-sm border-l-4 border-cyan-400">
                             <span class="text-gray-400 font-bold uppercase text-sm tracking-widest">Height</span>
-                            <span class="text-xl font-extrabold">158cm</span>
+                            <span class="text-xl font-extrabold">163 cm</span>
                         </div>
-                        <div class="flex justify-between items-center p-6 bg-white rounded-xl shadow-sm border-l-4 border-cyan-400">
+                        <div
+                            class="flex justify-between items-center p-6 bg-white rounded-xl shadow-sm border-l-4 border-cyan-400">
                             <span class="text-gray-400 font-bold uppercase text-sm tracking-widest">Unit</span>
-                            <span class="text-xl font-extrabold">Cyber Pulse</span>
+                            <span class="text-xl font-extrabold">Snake Dragon</span>
                         </div>
                     </div>
                     <!-- Right Stats (Descriptions) -->
                     <div class="space-y-8">
                         <div>
                             <h4 class="text-cyan-500 font-bold mb-2 tracking-widest">HASHTAGS</h4>
-                            <p class="text-lg leading-relaxed"><span class="font-bold">Live:</span> #ArisStream<br><span class="font-bold">Art:</span> #ArissaArt</p>
+                            <p class="text-lg leading-relaxed"><span class="font-bold">Live:</span> #ArisStream<br><span
+                                    class="font-bold">Art:</span> #ArissaArt</p>
                         </div>
                         <div>
                             <h4 class="text-cyan-500 font-bold mb-2 tracking-widest">DREAMS & GOALS</h4>
                             <p class="text-lg leading-relaxed text-gray-600">
-                                To bridge the gap between virtual and reality through a world-wide holographic concert. I also want to release a complete tech-opera album!
+                                To bridge the gap between virtual and reality through a world-wide holographic concert.
+                                I also want to release a complete tech-opera album!
                             </p>
                         </div>
                         <div>
@@ -254,36 +302,48 @@
                     <h2 class="section-title text-4xl md:text-6xl font-black text-center mb-4 text-cyan-900">MUSIC</h2>
                     <div class="w-24 h-1 bg-gradient-to-r from-cyan-400 to-blue-500"></div>
                 </div>
-                
+
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
                     <!-- Music Card 1 -->
-                    <div class="group relative aspect-square overflow-hidden rounded-2xl shadow-lg cursor-pointer bg-white">
-                        <img src="https://via.placeholder.com/400x400/00d2ff/ffffff?text=Solo+Album" alt="Music 1" class="transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110">
-                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                    <div
+                        class="group relative aspect-square overflow-hidden rounded-2xl shadow-lg cursor-pointer bg-white">
+                        <img src="https://via.placeholder.com/400x400/00d2ff/ffffff?text=Solo+Album" alt="Music 1"
+                            class="transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110">
+                        <div
+                            class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
                             <h4 class="text-white font-bold text-lg">NEO-GENESIS</h4>
                             <p class="text-gray-300 text-sm">Original Single</p>
                         </div>
                     </div>
                     <!-- Music Card 2 -->
-                    <div class="group relative aspect-square overflow-hidden rounded-2xl shadow-lg cursor-pointer bg-white">
-                        <img src="https://via.placeholder.com/400x400/0072ff/ffffff?text=Cover+1" alt="Music 2" class="transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110">
-                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                    <div
+                        class="group relative aspect-square overflow-hidden rounded-2xl shadow-lg cursor-pointer bg-white">
+                        <img src="https://via.placeholder.com/400x400/0072ff/ffffff?text=Cover+1" alt="Music 2"
+                            class="transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110">
+                        <div
+                            class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
                             <h4 class="text-white font-bold text-lg">Aether Drifter</h4>
                             <p class="text-gray-300 text-sm">Cover Song</p>
                         </div>
                     </div>
                     <!-- Music Card 3 -->
-                    <div class="group relative aspect-square overflow-hidden rounded-2xl shadow-lg cursor-pointer bg-white">
-                        <img src="https://via.placeholder.com/400x400/333333/ffffff?text=Original+2" alt="Music 3" class="transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110">
-                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                    <div
+                        class="group relative aspect-square overflow-hidden rounded-2xl shadow-lg cursor-pointer bg-white">
+                        <img src="https://via.placeholder.com/400x400/333333/ffffff?text=Original+2" alt="Music 3"
+                            class="transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110">
+                        <div
+                            class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
                             <h4 class="text-white font-bold text-lg">Hologram Blue</h4>
                             <p class="text-gray-300 text-sm">Original Single</p>
                         </div>
                     </div>
                     <!-- Music Card 4 -->
-                    <div class="group relative aspect-square overflow-hidden rounded-2xl shadow-lg cursor-pointer bg-white">
-                        <img src="https://via.placeholder.com/400x400/eee/333?text=Cover+2" alt="Music 4" class="transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110">
-                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                    <div
+                        class="group relative aspect-square overflow-hidden rounded-2xl shadow-lg cursor-pointer bg-white">
+                        <img src="https://via.placeholder.com/400x400/eee/333?text=Cover+2" alt="Music 4"
+                            class="transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110">
+                        <div
+                            class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
                             <h4 class="text-white font-bold text-lg">Signal Lost</h4>
                             <p class="text-gray-300 text-sm">Cover Song</p>
                         </div>
@@ -301,22 +361,28 @@
                 </div>
 
                 <div class="space-y-6">
-                    <div class="bg-gray-50 p-8 rounded-2xl border border-gray-100 hover:border-cyan-200 transition-colors">
+                    <div
+                        class="bg-gray-50 p-8 rounded-2xl border border-gray-100 hover:border-cyan-200 transition-colors">
                         <h4 class="text-cyan-600 font-black text-xl mb-4">Q: What is your favorite code language?</h4>
                         <p class="text-gray-800 text-lg leading-relaxed md:pl-6 border-l-2 border-cyan-400 italic">
-                            Carbon-based lifeforms use words, but I find the logic of binary more... comforting. But for fun? CSS! Making things look pretty is a digital art.
+                            Carbon-based lifeforms use words, but I find the logic of binary more... comforting. But for
+                            fun? CSS! Making things look pretty is a digital art.
                         </p>
                     </div>
-                    <div class="bg-gray-50 p-8 rounded-2xl border border-gray-100 hover:border-cyan-200 transition-colors">
+                    <div
+                        class="bg-gray-50 p-8 rounded-2xl border border-gray-100 hover:border-cyan-200 transition-colors">
                         <h4 class="text-cyan-600 font-black text-xl mb-4">Q: What do you like to do on days off?</h4>
                         <p class="text-gray-800 text-lg leading-relaxed md:pl-6 border-l-2 border-cyan-400 italic">
-                            I enjoy 'debugging' my room (cleaning it up) and exploring the local electronic districts for new components.
+                            I enjoy 'debugging' my room (cleaning it up) and exploring the local electronic districts
+                            for new components.
                         </p>
                     </div>
-                    <div class="bg-gray-50 p-8 rounded-2xl border border-gray-100 hover:border-cyan-200 transition-colors">
+                    <div
+                        class="bg-gray-50 p-8 rounded-2xl border border-gray-100 hover:border-cyan-200 transition-colors">
                         <h4 class="text-cyan-600 font-black text-xl mb-4">Q: Message to your fans?</h4>
                         <p class="text-gray-800 text-lg leading-relaxed md:pl-6 border-l-2 border-cyan-400 italic">
-                            Stay synchronized! Every beat of my artificial heart is shared with you. Thank you for connecting with me!
+                            Stay synchronized! Every beat of my artificial heart is shared with you. Thank you for
+                            connecting with me!
                         </p>
                     </div>
                 </div>
@@ -358,4 +424,5 @@
         });
     </script>
 </body>
+
 </html>
