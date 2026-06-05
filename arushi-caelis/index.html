@@ -15,15 +15,10 @@
         /* Color palette: Daun Semanggi */
         :root {
             --ica-primary: #96E04E;
-            /* hijau terang segar */
             --ica-secondary: #82CD3B;
-            /* bayangan gradasi gelap */
             --ica-vein: #6CA832;
-            /* garis urat daun */
             --ica-outline: #3B5E1C;
-            /* outline tepi */
             --ica-bg-light: #F4F9EE;
-            /* soft background daun */
             --ica-card-hover: #e9f5df;
         }
 
@@ -34,7 +29,6 @@
             overflow-x: hidden;
         }
 
-        /* Gradient teks & aksen */
         .text-gradient {
             background: linear-gradient(135deg, var(--ica-primary), var(--ica-secondary));
             -webkit-background-clip: text;
@@ -74,6 +68,7 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             border-color: var(--ica-primary);
             color: #4a7342;
+            background-color: white;
         }
 
         .social-btn:hover {
@@ -142,19 +137,6 @@
             font-size: 0.9rem;
         }
 
-        .btn-outline-leaf {
-            border: 2px solid var(--ica-primary);
-            background: white;
-            color: var(--ica-outline);
-            transition: all 0.2s;
-        }
-
-        .btn-outline-leaf:hover {
-            background: var(--ica-primary);
-            color: #1e3a1a;
-            border-color: var(--ica-secondary);
-        }
-
         .badge-leaf {
             background-color: #e5f5d6;
             color: #3B5E1C;
@@ -202,7 +184,6 @@
         .video-container {
             position: relative;
             padding-bottom: 56.25%;
-            /* 16:9 aspect ratio */
             height: 0;
             overflow: hidden;
             border-radius: 1rem;
@@ -226,6 +207,11 @@
         .video-card:hover {
             transform: translateY(-6px);
         }
+
+        /* Coming soon button style sama seperti social-btn */
+        .coming-soon-btn {
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -240,7 +226,6 @@
                 <a href="#videos" class="hover:text-[#96E04E] transition">Videos</a>
                 <a href="#data" class="hover:text-[#96E04E] transition">Data</a>
                 <a href="#instagram" class="hover:text-[#96E04E] transition">Instagram</a>
-                <a href="#qa" class="hover:text-[#96E04E] transition">Q&A</a>
             </div>
             <button class="md:hidden text-gray-600">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -296,25 +281,69 @@
                         </p>
                     </div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <a href="#"
-                            class="social-btn flex items-center justify-between px-6 py-4 rounded-xl border-2 font-bold group transition">
-                            <span>YouTube</span>
-                            <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none"
+                    <!-- Social & Platform Links Grid + Coming Soon -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                        <!-- Existing Links -->
+                        <a href="https://discord.gg/KEsxGvy95b" target="_blank"
+                            class="social-btn flex items-center justify-between px-4 py-3 rounded-xl border-2 font-bold group transition text-sm">
+                            <span>💬 Discord</span>
+                            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none"
                                 stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                             </svg>
                         </a>
-                        <a href="#"
-                            class="social-btn flex items-center justify-between px-6 py-4 rounded-xl border-2 font-bold group transition">
-                            <span>Twitter (X)</span>
-                            <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none"
+                        <a href="https://twitter.com/ArushiCaelis" target="_blank"
+                            class="social-btn flex items-center justify-between px-4 py-3 rounded-xl border-2 font-bold group transition text-sm">
+                            <span>🐦 Twitter</span>
+                            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none"
                                 stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                             </svg>
                         </a>
+                        <a href="https://instagram.com/ArushiCaelis" target="_blank"
+                            class="social-btn flex items-center justify-between px-4 py-3 rounded-xl border-2 font-bold group transition text-sm">
+                            <span>📷 Instagram</span>
+                            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </a>
+                        <a href="https://trakteer.id/ArushiCaelis" target="_blank"
+                            class="social-btn flex items-center justify-between px-4 py-3 rounded-xl border-2 font-bold group transition text-sm">
+                            <span>🎁 Trakteer</span>
+                            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </a>
+                        <a href="https://tako.id/ArushiCaelis" target="_blank"
+                            class="social-btn flex items-center justify-between px-4 py-3 rounded-xl border-2 font-bold group transition text-sm">
+                            <span>🐙 Tako</span>
+                            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </a>
+
+                        <!-- COMING SOON LINKS (3 tambahan) -->
+                        
+
+                        <div onclick="alert('Halaman Ini Belum Selesai - Akanaken')"
+                            class="social-btn coming-soon-btn flex items-center justify-between px-4 py-3 rounded-xl border-2 font-bold group transition text-sm">
+                            <span>✨ Asset Stream [Coming Soon]</span>
+                            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </div>
+
+                        
                     </div>
                 </div>
             </div>
@@ -332,7 +361,6 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Video 1: YouTube Embed -->
                     <div class="video-card">
                         <div class="video-container">
                             <iframe src="https://www.youtube.com/embed/njJJug3KUpg?si=K1k4_LNfa_YfcsrL"
@@ -340,11 +368,8 @@
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                 referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                         </div>
-                        <h3 class="text-xl font-bold mt-4 group-hover:text-[#96E04E] transition">✨ 【SINGING】Midnight
-                            Echo - Original Song</h3>
+                        <h3 class="text-xl font-bold mt-4 transition">✨ 【SINGING】Midnight Echo - Original Song</h3>
                     </div>
-
-                    <!-- Video 2: YouTube Embed -->
                     <div class="video-card">
                         <div class="video-container">
                             <iframe src="https://www.youtube.com/embed/nG4T28sMGv4?si=A69GmVEerzo05_cn"
@@ -352,11 +377,8 @@
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                 referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                         </div>
-                        <h3 class="text-xl font-bold mt-4 group-hover:text-[#96E04E] transition">🎮 【GAMEPLAY】Neo-Cities
-                            Top Rank Challenge!</h3>
+                        <h3 class="text-xl font-bold mt-4 transition">🎮 【GAMEPLAY】Neo-Cities Top Rank Challenge!</h3>
                     </div>
-
-                    <!-- Video 3: YouTube Embed -->
                     <div class="video-card">
                         <div class="video-container">
                             <iframe src="https://www.youtube.com/embed/fTtPtCYy9XY?si=W1CJ0qKz7c93q54i"
@@ -364,13 +386,12 @@
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                 referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                         </div>
-                        <h3 class="text-xl font-bold mt-4 group-hover:text-[#96E04E] transition">🍳 【OFFCOLLAB】Cooking
-                            Disaster with Friends!</h3>
+                        <h3 class="text-xl font-bold mt-4 transition">🍳 【OFFCOLLAB】Cooking Disaster with Friends!</h3>
                     </div>
                 </div>
 
                 <div class="mt-12 text-center">
-                    <a href="https://www.youtube.com/@ica_official" target="_blank"
+                    <a href="https://www.youtube.com/@ArushiCaelis" target="_blank"
                         class="inline-block px-12 py-4 bg-[#3B5E1C] text-white font-bold rounded-full hover:bg-[#96E04E] transition-colors duration-300 shadow-md hover:shadow-lg">
                         SUBSCRIBE ON YOUTUBE
                     </a>
@@ -438,7 +459,6 @@
                         <div class="card-value">Ini apaan weh?</div>
                     </div>
 
-                    <!-- Bahasa -->
                     <div class="info-card p-5 col-span-1">
                         <div class="card-label">🌐 Bahasa</div>
                         <div class="mt-2 space-y-2">
@@ -461,7 +481,6 @@
                         </div>
                     </div>
 
-                    <!-- Hobi -->
                     <div class="info-card p-5">
                         <div class="card-label">🎨 Hobi</div>
                         <ul class="list-bullet-custom">
@@ -476,7 +495,6 @@
                         </ul>
                     </div>
 
-                    <!-- Suka -->
                     <div class="info-card p-5">
                         <div class="card-label">❤️ Suka</div>
                         <ul class="list-bullet-custom">
@@ -490,7 +508,6 @@
                         </ul>
                     </div>
 
-                    <!-- Sukan't -->
                     <div class="info-card p-5">
                         <div class="card-label">🚫 Sukan't</div>
                         <ul class="list-bullet-custom">
@@ -504,7 +521,6 @@
                         </ul>
                     </div>
 
-                    <!-- Credit -->
                     <div class="info-card p-5">
                         <div class="card-label">✨ Credit</div>
                         <div class="space-y-3 mt-2">
@@ -838,51 +854,14 @@
                 </div>
 
                 <div class="text-center mt-12">
-                    <a href="https://www.instagram.com/ica.official" target="_blank"
+                    <a href="https://instagram.com/ArushiCaelis" target="_blank"
                         class="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-[#96E04E] to-[#82CD3B] text-white font-bold rounded-full hover:shadow-lg transition transform hover:scale-105">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                             <path
                                 d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85 0 3.204-.012 3.584-.069 4.85-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.85-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.85 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.85-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.667.072 4.947.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.667-.014 4.947-.072 4.358-.2 6.78-2.618 6.98-6.98.058-1.281.072-1.689.072-4.948 0-3.259-.014-3.667-.072-4.947-.2-4.358-2.618-6.78-6.98-6.98-1.281-.059-1.689-.073-4.948-.073zM12 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.44-.645 1.44-1.44s-.645-1.44-1.44-1.44z" />
                         </svg>
-                        Follow @ica.official
+                        Follow @ArushiCaelis
                     </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Q&A Section -->
-        <section id="qa" class="py-24 bg-white">
-            <div class="container mx-auto px-6 max-w-4xl">
-                <div class="flex flex-col items-center mb-16">
-                    <h2 class="section-title text-4xl font-extrabold text-center mb-4">Q & A</h2>
-                    <div class="w-16 h-1 bg-[#96E04E] rounded-full"></div>
-                </div>
-
-                <div class="space-y-6">
-                    <div
-                        class="bg-[#F9FDF4] p-8 rounded-2xl border border-[#96E04E]/30 hover:border-[#82CD3B] transition-colors">
-                        <h4 class="text-[#6CA832] font-black text-xl mb-4">Q: What is your favorite code language?</h4>
-                        <p class="text-gray-800 text-lg leading-relaxed md:pl-6 border-l-2 border-[#96E04E] italic">
-                            Carbon-based lifeforms use words, but I find the logic of binary more... comforting. But for
-                            fun? CSS! Making things look pretty is a digital art.
-                        </p>
-                    </div>
-                    <div
-                        class="bg-[#F9FDF4] p-8 rounded-2xl border border-[#96E04E]/30 hover:border-[#82CD3B] transition-colors">
-                        <h4 class="text-[#6CA832] font-black text-xl mb-4">Q: What do you like to do on days off?</h4>
-                        <p class="text-gray-800 text-lg leading-relaxed md:pl-6 border-l-2 border-[#96E04E] italic">
-                            I enjoy 'debugging' my room (cleaning it up) and exploring the local electronic districts
-                            for new components.
-                        </p>
-                    </div>
-                    <div
-                        class="bg-[#F9FDF4] p-8 rounded-2xl border border-[#96E04E]/30 hover:border-[#82CD3B] transition-colors">
-                        <h4 class="text-[#6CA832] font-black text-xl mb-4">Q: Message to your fans?</h4>
-                        <p class="text-gray-800 text-lg leading-relaxed md:pl-6 border-l-2 border-[#96E04E] italic">
-                            Stay synchronized! Every beat of my artificial heart is shared with you. Thank you for
-                            connecting with me!
-                        </p>
-                    </div>
                 </div>
             </div>
         </section>
@@ -892,12 +871,15 @@
     <footer class="bg-[#1e2e14] py-12 text-white">
         <div class="container mx-auto px-6 text-center">
             <div class="text-3xl font-black mb-6 tracking-tighter text-[#96E04E]">ica.</div>
-            <p class="text-gray-300 text-sm mb-8">&copy; 2024 ica Official. All Rights Reserved.</p>
-            <div class="flex justify-center space-x-6 text-gray-400">
-                <a href="#" class="hover:text-[#96E04E] transition">YouTube</a>
-                <a href="#" class="hover:text-[#96E04E] transition">Twitter</a>
-                <a href="#" class="hover:text-[#96E04E] transition">Instagram</a>
+            <div class="flex flex-wrap justify-center gap-4 text-sm mb-6">
+                <a href="https://discord.gg/KEsxGvy95b" target="_blank" class="hover:text-[#96E04E] transition">Discord</a>
+                <a href="https://twitter.com/ArushiCaelis" target="_blank" class="hover:text-[#96E04E] transition">Twitter</a>
+                <a href="https://instagram.com/ArushiCaelis" target="_blank" class="hover:text-[#96E04E] transition">Instagram</a>
+                <a href="https://trakteer.id/ArushiCaelis" target="_blank" class="hover:text-[#96E04E] transition">Trakteer</a>
+                <a href="https://tako.id/ArushiCaelis" target="_blank" class="hover:text-[#96E04E] transition">Tako</a>
+                <!-- Coming soon di footer juga opsional, tapi tidak wajib, cukup di hero saja -->
             </div>
+            <p class="text-gray-300 text-sm mb-4">&copy; 2026 Arushi Caelis. All Rights Reserved.</p>
         </div>
     </footer>
 
@@ -912,15 +894,6 @@
                 if (target) {
                     target.scrollIntoView({ behavior: 'smooth' });
                 }
-            });
-        });
-
-        // Outfit selector simulation (though not used now, keep safe)
-        const thumbs = document.querySelectorAll('.outfit-thumb');
-        thumbs.forEach(thumb => {
-            thumb.addEventListener('click', () => {
-                thumbs.forEach(t => t.classList.remove('active', 'border-[#96E04E]'));
-                thumb.classList.add('active', 'border-[#96E04E]');
             });
         });
     </script>
