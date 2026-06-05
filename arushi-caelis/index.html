@@ -80,6 +80,50 @@
             opacity: 0.05;
             z-index: -1;
         }
+
+        /* Custom card style inspired by reference image */
+        .info-card {
+            transition: all 0.3s ease;
+            background: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+        }
+
+        .info-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-label {
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.85rem;
+            color: #00a3c4;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+            border-left: 3px solid #00d2ff;
+            padding-left: 0.75rem;
+        }
+
+        .card-value {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #1e293b;
+            word-break: break-word;
+        }
+
+        .list-bullet-custom {
+            list-style-type: disc;
+            padding-left: 1.25rem;
+            margin-top: 0.5rem;
+            color: #334155;
+        }
+
+        .list-bullet-custom li {
+            margin-bottom: 0.35rem;
+            font-size: 0.95rem;
+        }
     </style>
 </head>
 
@@ -109,13 +153,11 @@
 
         <!-- Hero Section -->
         <section id="profile" class="relative min-h-screen flex items-center overflow-hidden">
-            <!-- Decorative Shapes -->
             <div class="geometric-shape top-20 left-10 w-64 h-64 bg-cyan-500 rounded-full blur-[100px]"></div>
             <div class="geometric-shape bottom-10 right-10 w-96 h-96 bg-blue-500 rounded-full blur-[120px]"></div>
 
             <div class="container mx-auto px-6 flex flex-col lg:flex-row items-center gap-12">
 
-                <!-- Left: Outfit Selectors (Vertical) -->
                 <div class="hidden lg:flex flex-col gap-4 z-10">
                     <div
                         class="outfit-thumb active rounded-full p-1 bg-white shadow-lg overflow-hidden w-16 h-16 border-2 border-cyan-400">
@@ -132,18 +174,14 @@
                     </div>
                 </div>
 
-                <!-- Center: Main Character Image -->
                 <div class="relative flex-1 flex justify-center items-center z-0">
                     <div class="character-bg-glow"></div>
-                    <!-- Large Faded BG Image -->
                     <img src="assets/ica_full_body.png" alt="ica Background"
                         class="absolute w-[120%] h-auto opacity-10 blur-sm scale-110 pointer-events-none">
-                    <!-- Main Image -->
                     <img src="assets/ica_full_body.png" alt="ica"
                         class="relative max-w-full h-auto drop-shadow-2xl animate-fade-in transition-transform duration-700 hover:scale-105">
                 </div>
 
-                <!-- Right: Bio Info -->
                 <div class="flex-1 z-10">
                     <nav class="flex text-xs space-x-2 text-gray-400 font-bold mb-4 uppercase tracking-tighter">
                         <a href="#">Home</a>
@@ -200,7 +238,6 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <!-- Video Card 1 -->
                     <div class="group cursor-pointer">
                         <div class="relative overflow-hidden rounded-2xl shadow-lg mb-4">
                             <img src="https://via.placeholder.com/600x338/111/fff?text=Singing+Stream" alt="Video 1"
@@ -210,7 +247,6 @@
                         <h3 class="text-xl font-bold group-hover:text-cyan-500 transition">【SINGING】Midnight Echo -
                             Original Song Release</h3>
                     </div>
-                    <!-- Video Card 2 -->
                     <div class="group cursor-pointer">
                         <div class="relative overflow-hidden rounded-2xl shadow-lg mb-4">
                             <img src="https://via.placeholder.com/600x338/222/fff?text=Gaming+Highlights" alt="Video 2"
@@ -220,7 +256,6 @@
                         <h3 class="text-xl font-bold group-hover:text-cyan-500 transition">【GAMEPLAY】Neo-Cities: Top
                             Rank Challenge!</h3>
                     </div>
-                    <!-- Video Card 3 -->
                     <div class="group cursor-pointer">
                         <div class="relative overflow-hidden rounded-2xl shadow-lg mb-4">
                             <img src="https://via.placeholder.com/600x338/333/fff?text=Collab+Stream" alt="Video 3"
@@ -240,194 +275,181 @@
             </div>
         </section>
 
-        <!-- Data Section -->
-        <section id="data" class="py-24 bg-gradient-to-b from-white to-gray-50">
-            <div class="container mx-auto px-6 relative bg-cover bg-center" style="background-image:url('https://via.placeholder.com/1200x800');">
-    <div class="absolute inset-0 bg-black/30 pointer-events-none"></div>
-    <div class="relative z-10">
-
-                <div class="flex flex-col items-center mb-16">
-                    <h2 class="section-title text-4xl md:text-6xl font-black text-center mb-4">INFORMASI DASAR</h2>
-                    <div class="w-24 h-1 bg-gradient-to-r from-cyan-400 to-blue-500"></div>
-                </div>
-                <div class="bg-white rounded-lg shadow overflow-hidden mb-12">
-                    <table class="w-full table-auto">
-                        <thead>
-                            <tr>
-                                <th class="px-4 py-2 text-left bg-gray-100">Info</th>
-                                <th class="px-4 py-2 text-left bg-gray-100">Value</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="border-b">
-                                <td class="px-4 py-2 font-medium">Nama Lengkap</td>
-                                <td class="px-4 py-2">Arushi Caelis</td>
-                            </tr>
-                            <tr class="border-b">
-                                <td class="px-4 py-2 font-medium">Panggilan</td>
-                                <td class="px-4 py-2">Ica</td>
-                            </tr>
-                            <tr class="border-b">
-                                <td class="px-4 py-2 font-medium">Tanggal Lahir</td>
-                                <td class="px-4 py-2">5 Juni</td>
-                            </tr>
-                            <tr class="border-b">
-                                <td class="px-4 py-2 font-medium">Tahun Lahir</td>
-                                <td class="px-4 py-2">Tahun sekian</td>
-                            </tr>
-                            <tr class="border-b">
-                                <td class="px-4 py-2 font-medium">Tinggi</td>
-                                <td class="px-4 py-2">144 cm AKU TINGGI</td>
-                            </tr>
-                            <tr>
-                                <td class="px-4 py-2 font-medium">Usia</td>
-                                <td class="px-4 py-2">Umur</td>
-                            </tr>
-                        </tbody>
-                    </table>
+        <!-- Data Section - redesigned as clean card grid matching reference image style -->
+        <section id="data" class="py-24 bg-gradient-to-b from-gray-50 to-white">
+            <div class="container mx-auto px-6">
+                <!-- subtle header optional, but focus on cards -->
+                <div class="text-center mb-12">
+                    <h2
+                        class="text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-blue-600 inline-block">
+                        ✦ プロフィール ✦</h2>
+                    <div class="w-20 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 mx-auto mt-3 rounded-full"></div>
                 </div>
 
-                <div class="flex flex-col items-center mb-16">
-                    <h2 class="section-title text-4xl md:text-6xl font-black text-center mb-4">INFORMASI LEBIH LANJUT
-                    </h2>
-                    <div class="w-24 h-1 bg-gradient-to-r from-cyan-400 to-blue-500"></div>
+                <!-- Grid of cards exactly like reference image style: white, rounded-2xl, shadow, hover lift -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+
+                    <!-- Nama Lengkap -->
+                    <div class="info-card p-5">
+                        <div class="card-label">Nama Lengkap</div>
+                        <div class="card-value text-lg font-bold">Arushi Caelis</div>
+                    </div>
+
+                    <!-- Panggilan -->
+                    <div class="info-card p-5">
+                        <div class="card-label">Panggilan</div>
+                        <div class="card-value">Ica</div>
+                    </div>
+
+                    <!-- Tanggal Lahir -->
+                    <div class="info-card p-5">
+                        <div class="card-label">Tanggal Lahir</div>
+                        <div class="card-value">5 Juni</div>
+                    </div>
+
+                    <!-- Tahun Lahir -->
+                    <div class="info-card p-5">
+                        <div class="card-label">Tahun Lahir</div>
+                        <div class="card-value">Tahun sekian</div>
+                    </div>
+
+                    <!-- Tinggi -->
+                    <div class="info-card p-5">
+                        <div class="card-label">Tinggi</div>
+                        <div class="card-value">144 cm <span class="text-sm text-cyan-500">AKU TINGGI</span></div>
+                    </div>
+
+                    <!-- Usia -->
+                    <div class="info-card p-5">
+                        <div class="card-label">Usia</div>
+                        <div class="card-value">Umur</div>
+                    </div>
+
+                    <!-- Jenis -->
+                    <div class="info-card p-5">
+                        <div class="card-label">Jenis</div>
+                        <div class="card-value">Cwk</div>
+                    </div>
+
+                    <!-- Spesies (Lalapan Semanggi) -->
+                    <div class="info-card p-5">
+                        <div class="card-label">Spesies</div>
+                        <div class="card-value">Lalapan Semanggi</div>
+                    </div>
+
+                    <!-- Ras -->
+                    <div class="info-card p-5">
+                        <div class="card-label">Ras</div>
+                        <div class="card-value">Manusia setengah manusia</div>
+                    </div>
+
+                    <!-- Pekerjaan -->
+                    <div class="info-card p-5">
+                        <div class="card-label">Pekerjaan</div>
+                        <div class="card-value">Pencari bibit semanggi</div>
+                    </div>
+
+                    <!-- Genre -->
+                    <div class="info-card p-5">
+                        <div class="card-label">Genre</div>
+                        <div class="card-value">Pemecah Telinga</div>
+                    </div>
+
+                    <!-- Generasi -->
+                    <div class="info-card p-5">
+                        <div class="card-label">Generasi</div>
+                        <div class="card-value">Ini apaan weh?</div>
+                    </div>
+
+                    <!-- Bahasa card: menampilkan daftar skill bahasa -->
+                    <div class="info-card p-5 col-span-1">
+                        <div class="card-label">🌐 Bahasa</div>
+                        <div class="mt-2 space-y-2">
+                            <div class="flex justify-between items-center border-b border-gray-100 pb-1">
+                                <span class="font-medium">Indonesia</span>
+                                <span class="text-sm bg-gray-100 px-2 py-0.5 rounded-full">10</span>
+                            </div>
+                            <div class="flex justify-between items-center border-b border-gray-100 pb-1">
+                                <span class="font-medium">Jawa</span>
+                                <span class="text-sm bg-gray-100 px-2 py-0.5 rounded-full">10000000</span>
+                            </div>
+                            <div class="flex justify-between items-center border-b border-gray-100 pb-1">
+                                <span class="font-medium">Jepang</span>
+                                <span class="text-sm bg-gray-100 px-2 py-0.5 rounded-full">1</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="font-medium">Broken EN</span>
+                                <span class="text-sm bg-gray-100 px-2 py-0.5 rounded-full">1000</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hobi card (list) -->
+                    <div class="info-card p-5">
+                        <div class="card-label">🎨 Hobi</div>
+                        <ul class="list-bullet-custom">
+                            <li>Tidur</li>
+                            <li>Teriak</li>
+                            <li>Ngangong</li>
+                            <li>Coret coret</li>
+                            <li>Krauk krauk</li>
+                            <li>Ngrepotin</li>
+                            <li>Nyanyi</li>
+                            <li>Cuihin Orang</li>
+                        </ul>
+                    </div>
+
+                    <!-- Suka card -->
+                    <div class="info-card p-5">
+                        <div class="card-label">❤️ Suka</div>
+                        <ul class="list-bullet-custom">
+                            <li>Pentol</li>
+                            <li>Tanggal merah</li>
+                            <li>Gratisan</li>
+                            <li>Duid</li>
+                            <li>Hal hal imut</li>
+                            <li>Cuaca dingin</li>
+                            <li>Ginjal MSang</li>
+                        </ul>
+                    </div>
+
+                    <!-- Sukan't card -->
+                    <div class="info-card p-5">
+                        <div class="card-label">🚫 Sukan't</div>
+                        <ul class="list-bullet-custom">
+                            <li>HORROR WEE</li>
+                            <li>Bawang + Daunnya</li>
+                            <li>Mati Listrik</li>
+                            <li>Angka 413 &amp; 144</li>
+                            <li>Dibilang Imut</li>
+                            <li>Kerja</li>
+                            <li>Mandi</li>
+                        </ul>
+                    </div>
+
+                    <!-- Credit card with illustrator & rigger links -->
+                    <div class="info-card p-5">
+                        <div class="card-label">✨ Credit</div>
+                        <div class="space-y-3 mt-2">
+                            <div>
+                                <span class="font-semibold text-gray-700">Illustrator:</span>
+                                <a href="https://x.com/Mashuako1" target="_blank"
+                                    class="text-cyan-600 hover:text-cyan-800 underline decoration-cyan-300 ml-1">Mashuako</a>
+                            </div>
+                            <div>
+                                <span class="font-semibold text-gray-700">Rigger:</span>
+                                <a href="https://x.com/siauwadhie" target="_blank"
+                                    class="text-cyan-600 hover:text-cyan-800 underline decoration-cyan-300 ml-1">SiauwAdhie</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bonus: tambahan kartu "Unit" atau "Debut" tidak ada di data asli, tapi kita buat ringkasan karakter -->
+                    <div class="info-card p-5 bg-gradient-to-br from-white to-cyan-50/30">
+                        <div class="card-label">🌟 Karakter</div>
+                        <div class="card-value text-sm italic">"Pemecah Telinga & Pencari bibit semanggi sejati"</div>
+                    </div>
                 </div>
-                <div class="bg-white rounded-lg shadow overflow-hidden">
-                    <table class="w-full table-auto">
-                        <thead>
-                            <tr>
-                                <th class="px-4 py-2 text-left bg-gray-100">Info</th>
-                                <th class="px-4 py-2 text-left bg-gray-100">Value</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="border-b">
-                                <td class="px-4 py-2 font-medium">Jenis</td>
-                                <td class="px-4 py-2">Cwk</td>
-                            </tr>
-                            <tr class="border-b">
-                                <td class="px-4 py-2 font-medium">Spesies</td>
-                                <td class="px-4 py-2">Lalapan Semanggi</td>
-                            </tr>
-                            <tr class="border-b">
-                                <td class="px-4 py-2 font-medium">Ras</td>
-                                <td class="px-4 py-2">Manusia setengah manusia</td>
-                            </tr>
-                            <tr class="border-b">
-                                <td class="px-4 py-2 font-medium">Pekerjaan</td>
-                                <td class="px-4 py-2">Pencari bibit semanggi</td>
-                            </tr>
-                            <tr class="border-b">
-                                <td class="px-4 py-2 font-medium">Genre</td>
-                                <td class="px-4 py-2">Pemecah Telinga</td>
-                            </tr>
-                            <tr>
-                                <td class="px-4 py-2 font-medium">Generasi</td>
-                                <td class="px-4 py-2">Ini apaan weh?</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="mt-12">
-                <h3 class="text-2xl font-bold mb-2">Bahasa</h3>
-                <table class="w-full table-auto">
-                    <thead>
-                        <tr>
-                            <th class="px-4 py-2 text-left bg-gray-100">Bahasa</th>
-                            <th class="px-4 py-2 text-left bg-gray-100">Score</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="border-b">
-                            <td class="px-4 py-2">Indonesia</td>
-                            <td class="px-4 py-2">10</td>
-                        </tr>
-                        <tr class="border-b">
-                            <td class="px-4 py-2">Jawa</td>
-                            <td class="px-4 py-2">10000000</td>
-                        </tr>
-                        <tr class="border-b">
-                            <td class="px-4 py-2">Jepang</td>
-                            <td class="px-4 py-2">1</td>
-                        </tr>
-                        <tr>
-                            <td class="px-4 py-2">Broken EN</td>
-                            <td class="px-4 py-2">1000</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="mt-12">
-                <h3 class="text-2xl font-bold mb-2">Hobi</h3>
-                <table class="w-full table-auto">
-                    <thead>
-                        <tr>
-                            <th class="px-4 py-2 text-left bg-gray-100">Hobi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="border-b hover:bg-gray-50">
-                            <td class="px-4 py-2">Tidur</td>
-                        </tr>
-                        <tr class="border-b hover:bg-gray-50">
-                            <td class="px-4 py-2">Teriak</td>
-                        </tr>
-                        <tr class="border-b hover:bg-gray-50">
-                            <td class="px-4 py-2">Ngangong</td>
-                        </tr>
-                        <tr class="border-b hover:bg-gray-50">
-                            <td class="px-4 py-2">Coret coret</td>
-                        </tr>
-                        <tr class="border-b hover:bg-gray-50">
-                            <td class="px-4 py-2">Krauk krauk</td>
-                        </tr>
-                        <tr class="border-b hover:bg-gray-50">
-                            <td class="px-4 py-2">Ngrepotin</td>
-                        </tr>
-                        <tr class="border-b hover:bg-gray-50">
-                            <td class="px-4 py-2">Nyanyi</td>
-                        </tr>
-                        <tr class="hover:bg-gray-50">
-                            <td class="px-4 py-2">Cuihin Orang</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="mt-12">
-                <h3 class="text-2xl font-bold mb-2">Suka</h3>
-                <ul class="list-disc pl-5">
-                    <li>Pentol</li>
-                    <li>Tanggal merah</li>
-                    <li>Gratisan</li>
-                    <li>Duid</li>
-                    <li>Hal hal imut</li>
-                    <li>Cuaca dingin</li>
-                    <li>Ginjal MSang</li>
-                </ul>
-            </div>
-
-            <div class="mt-12">
-                <h3 class="text-2xl font-bold mb-2">Suka &amp; Sukan't</h3>
-                <ul class="list-disc pl-5">
-                    <li>HORROR WEE</li>
-                    <li>Bawang + Daunnya</li>
-                    <li>Mati Listrik</li>
-                    <li>Angka 413 &amp; 144</li>
-                    <li>Dibilang Imut</li>
-                    <li>Kerja</li>
-                    <li>Mandi</li>
-                </ul>
-            </div>
-
-            <div class="mt-12">
-                <h3 class="text-2xl font-bold mb-2">Credit</h3>
-                <p>Illustrator: <a href="https://x.com/Mashuako1" class="text-cyan-500 underline">Mashuako</a></p>
-                <p>Rigger: <a href="https://x.com/siauwadhie" class="text-cyan-500 underline">SiauwAdhie</a></p>
-            </div>
             </div>
         </section>
 
@@ -440,7 +462,6 @@
                 </div>
 
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                    <!-- Music Card 1 -->
                     <div
                         class="group relative aspect-square overflow-hidden rounded-2xl shadow-lg cursor-pointer bg-white">
                         <img src="https://via.placeholder.com/400x400/00d2ff/ffffff?text=Solo+Album" alt="Music 1"
@@ -451,7 +472,6 @@
                             <p class="text-gray-300 text-sm">Original Single</p>
                         </div>
                     </div>
-                    <!-- Music Card 2 -->
                     <div
                         class="group relative aspect-square overflow-hidden rounded-2xl shadow-lg cursor-pointer bg-white">
                         <img src="https://via.placeholder.com/400x400/0072ff/ffffff?text=Cover+1" alt="Music 2"
@@ -462,7 +482,6 @@
                             <p class="text-gray-300 text-sm">Cover Song</p>
                         </div>
                     </div>
-                    <!-- Music Card 3 -->
                     <div
                         class="group relative aspect-square overflow-hidden rounded-2xl shadow-lg cursor-pointer bg-white">
                         <img src="https://via.placeholder.com/400x400/333333/ffffff?text=Original+2" alt="Music 3"
@@ -473,7 +492,6 @@
                             <p class="text-gray-300 text-sm">Original Single</p>
                         </div>
                     </div>
-                    <!-- Music Card 4 -->
                     <div
                         class="group relative aspect-square overflow-hidden rounded-2xl shadow-lg cursor-pointer bg-white">
                         <img src="https://via.placeholder.com/400x400/eee/333?text=Cover+2" alt="Music 4"
@@ -540,17 +558,20 @@
     </footer>
 
     <script>
-        // Simple smoothing for internal links
+        // Smooth scrolling for internal anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
             });
         });
 
-        // Outfit Toggle Placeholder
+        // Outfit selector simulation
         const thumbs = document.querySelectorAll('.outfit-thumb');
         thumbs.forEach(thumb => {
             thumb.addEventListener('click', () => {
