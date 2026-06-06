@@ -2,144 +2,218 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>DigiClover Clock Widget - ArushiCaelis</title>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-body {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  font-family: 'Nunito', sans-serif;
-  overflow: hidden;
-}
+  body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    font-family: 'Nunito', sans-serif;
+    overflow: hidden;
+    transition: background 0.3s ease;
+  }
 
-.scene {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  padding: 20px 130px 10px;
-}
+  .scene {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    padding: 20px 130px 10px;
+  }
 
-.clover-left, .clover-right {
-  position: absolute;
-  top: 50%;
-  z-index: 2;
-}
-.clover-left  { left: 0;   transform: translateY(-58%); animation: swayL 3.5s ease-in-out infinite; }
-.clover-right { right: 0;  transform: translateY(-58%); animation: swayR 3.5s ease-in-out infinite; }
+  .clover-left, .clover-right {
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+  }
+  .clover-left  { left: 0;   transform: translateY(-58%); animation: swayL 3.5s ease-in-out infinite; }
+  .clover-right { right: 0;  transform: translateY(-58%); animation: swayR 3.5s ease-in-out infinite; }
 
-@keyframes swayL {
-  0%,100% { transform: translateY(-58%) rotate(-6deg) scale(1);    }
-  50%     { transform: translateY(-64%) rotate(3deg)  scale(1.04); }
-}
-@keyframes swayR {
-  0%,100% { transform: translateY(-58%) rotate(6deg)  scale(1);    }
-  50%     { transform: translateY(-64%) rotate(-3deg) scale(1.04); }
-}
+  @keyframes swayL {
+    0%,100% { transform: translateY(-58%) rotate(-6deg) scale(1);    }
+    50%     { transform: translateY(-64%) rotate(3deg)  scale(1.04); }
+  }
+  @keyframes swayR {
+    0%,100% { transform: translateY(-58%) rotate(6deg)  scale(1);    }
+    50%     { transform: translateY(-64%) rotate(-3deg) scale(1.04); }
+  }
 
-.clover-left img, .clover-right img {
-  width: 110px;
-  height: 110px;
-  object-fit: contain;
-  filter: drop-shadow(0 4px 10px rgba(60,140,60,0.35));
-}
-.clover-right img { transform: scaleX(-1); }
+  .clover-left img, .clover-right img {
+    width: 110px;
+    height: 110px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 10px rgba(60,140,60,0.35));
+    transition: filter 0.4s ease, opacity 0.3s ease;
+  }
+  .clover-right img { transform: scaleX(-1); }
 
-.clock-body {
-  position: relative;
-  width: 320px;
-  background: linear-gradient(160deg, #d4f5d4 0%, #b8eab8 50%, #9ddf9d 100%);
-  border-radius: 42px;
-  padding: 18px 22px 16px;
-  border: 3px solid #fff;
-  box-shadow: 0 6px 0 #7ecb7e, 0 10px 0 rgba(100,180,100,0.25), 0 18px 40px rgba(80,160,80,0.25), inset 0 2px 8px rgba(255,255,255,0.7);
-  z-index: 3;
-}
+  /* BASE STYLE (akan di-override oleh kelas theme-light / theme-dark) */
+  .clock-body {
+    position: relative;
+    width: 320px;
+    border-radius: 42px;
+    padding: 18px 22px 16px;
+    border: 3px solid #fff;
+    box-shadow: 0 6px 0 #7ecb7e, 0 10px 0 rgba(100,180,100,0.25), 0 18px 40px rgba(80,160,80,0.25), inset 0 2px 8px rgba(255,255,255,0.7);
+    transition: background 0.35s ease, box-shadow 0.35s ease, border-color 0.2s;
+    z-index: 3;
+  }
 
-.snooze-btn {
-  position: absolute;
-  top: -16px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 52px;
-  height: 20px;
-  background: linear-gradient(to bottom, #a8e6a8, #7ecb7e);
-  border-radius: 20px 20px 8px 8px;
-  border: 2.5px solid #fff;
-  box-shadow: 0 3px 0 #7ecb7e;
-  cursor: pointer;
-}
+  /* MODE TERANG (06:00 - 17:59) -> Lebih cerah, semangat */
+  .theme-light .clock-body {
+    background: linear-gradient(145deg, #eaffea 0%, #c2f0c2 50%, #a8e6a8 100%);
+    box-shadow: 0 6px 0 #6bc06b, 0 12px 28px rgba(80,180,80,0.4), inset 0 1px 6px rgba(255,255,200,0.9);
+    border-color: #f9fff0;
+  }
+  .theme-light .lcd-screen {
+    background: linear-gradient(145deg, #e9f5e3, #cde2cd);
+    border: 3px solid rgba(255,255,210,0.7);
+    box-shadow: inset 0 2px 10px rgba(0,0,0,0.2), 0 2px 6px rgba(120,200,100,0.3);
+  }
+  .theme-light .time-display {
+    color: #1f7a2f;
+    text-shadow: 0 2px 2px rgba(255,255,180,0.6);
+  }
+  .theme-light #date-display {
+    color: #2b7340;
+    font-weight: 800;
+    text-shadow: 0 1px 0 rgba(255,245,170,0.8);
+  }
+  .theme-light .clock-base {
+    background: linear-gradient(145deg, #59a859, #3f8a3f);
+    border-color: #ebffcf;
+  }
+  .theme-light .social-handle {
+    color: #ffffdd;
+    text-shadow: 0 1px 2px #1c521c;
+  }
+  .theme-light .platform-icon {
+    background: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .theme-light .progress-fill {
+    background: rgba(255,240,150,0.85);
+  }
+  .theme-light .snooze-btn {
+    background: linear-gradient(to bottom, #c8f0b0, #8bcb6b);
+    box-shadow: 0 3px 0 #468c2b;
+  }
 
-.lcd-screen {
-  background: linear-gradient(160deg, #1a2e1a, #0f1f0f);
-  border-radius: 26px;
-  padding: 16px 14px 12px;
-  position: relative;
-  border: 3px solid rgba(255,255,255,0.25);
-  box-shadow: inset 0 3px 14px rgba(0,0,0,0.6);
-}
+  /* MODE GELAP (18:00 - 05:59) -> lebih redup, elegan malam */
+  .theme-dark .clock-body {
+    background: linear-gradient(145deg, #2f4a2f, #1c2f1c);
+    box-shadow: 0 6px 0 #2b542b, 0 8px 20px rgba(0,0,0,0.6), inset 0 1px 4px rgba(200,220,150,0.2);
+    border-color: #446644;
+  }
+  .theme-dark .lcd-screen {
+    background: linear-gradient(145deg, #0f1f0f, #051005);
+    border: 3px solid rgba(80,100,60,0.5);
+    box-shadow: inset 0 3px 14px rgba(0,0,0,0.8);
+  }
+  .theme-dark .time-display {
+    color: #6cc96c;
+    text-shadow: 0 0 4px #2f9e2f, 0 1px 0 #0a3b0a;
+  }
+  .theme-dark #date-display {
+    color: #5fad5f;
+    font-weight: 700;
+    opacity: 0.9;
+  }
+  .theme-dark .clock-base {
+    background: linear-gradient(145deg, #1e3a1e, #0f260f);
+    border-color: #2f542f;
+  }
+  .theme-dark .social-handle {
+    color: #cfe6cf;
+    text-shadow: 0 0 2px #0c3e0c;
+  }
+  .theme-dark .platform-icon {
+    background: #d9f0d9;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.3);
+  }
+  .theme-dark .progress-fill {
+    background: rgba(100,180,100,0.65);
+  }
+  .theme-dark .snooze-btn {
+    background: linear-gradient(to bottom, #528a4e, #2b542b);
+    box-shadow: 0 3px 0 #163812;
+  }
 
-.time-display { font-family: 'Fredoka One', cursive; font-size: 74px; color: #5dff80; text-align: center; line-height: 1; }
+  .lcd-screen {
+    border-radius: 26px;
+    padding: 16px 14px 12px;
+    transition: background 0.35s ease, box-shadow 0.35s ease, border 0.2s;
+  }
 
-.clock-base {
-  width: 300px;
-  margin-top: -6px;
-  background: linear-gradient(160deg, #3b5bdb, #2f4bc4);
-  border-radius: 0 0 28px 28px;
-  border: 3px solid #fff;
-  border-top: none;
-  padding: 10px 18px 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  z-index: 2;
-  position: relative;
-  height: 60px; /* Menambah tinggi agar slide aman */
-  overflow: hidden;
-}
+  .time-display { font-family: 'Fredoka One', cursive; font-size: 74px; text-align: center; line-height: 1; transition: color 0.2s, text-shadow 0.2s; }
+  
+  .clock-base {
+    width: 300px;
+    margin-top: -6px;
+    border-radius: 0 0 28px 28px;
+    border: 3px solid #fff;
+    border-top: none;
+    padding: 10px 18px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    z-index: 2;
+    position: relative;
+    height: 60px;
+    overflow: hidden;
+    transition: background 0.35s ease, border-color 0.2s;
+  }
 
-.platform-icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: white;
-  overflow: hidden;
-  flex-shrink: 0;
-}
+  .platform-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    overflow: hidden;
+    flex-shrink: 0;
+    transition: background 0.2s, box-shadow 0.2s;
+  }
 
-.platform-icon img { width: 100%; height: 100%; object-fit: cover; }
-.social-handle { font-family: 'Nunito', sans-serif; font-size: 16px; font-weight: 900; color: white; white-space: nowrap; }
+  .platform-icon img { width: 100%; height: 100%; object-fit: cover; }
+  .social-handle { font-family: 'Nunito', sans-serif; font-size: 16px; font-weight: 900; white-space: nowrap; transition: color 0.2s, text-shadow 0.2s; }
 
-/* Container slide */
-#social-container { width: 100%; display: flex; align-items: center; justify-content: center; }
-.social-slide { display: flex; align-items: center; gap: 10px; width: 100%; justify-content: center; animation: popIn 0.45s cubic-bezier(0.34,1.56,0.64,1) both; }
-@keyframes popIn { from { opacity:0; transform: scale(0.7) translateY(8px); } to { opacity:1; transform: scale(1) translateY(0); } }
+  #social-container { width: 100%; display: flex; align-items: center; justify-content: center; }
+  .social-slide { display: flex; align-items: center; gap: 10px; width: 100%; justify-content: center; animation: popIn 0.45s cubic-bezier(0.34,1.56,0.64,1) both; }
+  @keyframes popIn { from { opacity:0; transform: scale(0.7) translateY(8px); } to { opacity:1; transform: scale(1) translateY(0); } }
 
-.progress-track { position: absolute; bottom: 0; left: 0; height: 3px; background: rgba(255,255,255,0.12); width: 100%; border-radius: 0 0 28px 28px; }
-.progress-fill { height: 100%; background: rgba(255,255,255,0.55); width: 0%; transition: width 1s linear; }
+  .progress-track { position: absolute; bottom: 0; left: 0; height: 3px; background: rgba(0,0,0,0.2); width: 100%; border-radius: 0 0 28px 28px; }
+  .progress-fill { height: 100%; width: 0%; transition: width 1s linear, background 0.3s; }
+
+  /* Tambahan transisi untuk body jika diinginkan, tapi opsional */
+  .theme-dark .clover-left img, .theme-dark .clover-right img {
+    filter: drop-shadow(0 2px 6px rgba(20,70,20,0.6)) brightness(0.9);
+  }
+  .theme-light .clover-left img, .theme-light .clover-right img {
+    filter: drop-shadow(0 4px 12px rgba(70,170,70,0.7)) brightness(1.05);
+  }
 </style>
 </head>
 <body>
 
 <div class="scene">
-  <div class="clover-right"><img src="../Image/Semanggi.png"></div>
-  <div class="clover-left"><img src="../Image/Semanggi.png"></div>
+  <div class="clover-right"><img src="../Image/Semanggi.png" alt="clover"></div>
+  <div class="clover-left"><img src="../Image/Semanggi.png" alt="clover"></div>
 
   <div class="clock-body">
-    <button class="snooze-btn"></button>
+    <button class="snooze-btn" id="snoozeBtn" aria-label="snooze"></button>
     <div class="lcd-screen">
       <div class="time-display"><span id="hours">12</span>:<span id="minutes">00</span></div>
-      <div id="date-display" style="text-align:center; color:#3daa52; font-size:20px; margin-top:5px;"></div>
+      <div id="date-display" style="text-align:center; font-size:20px; margin-top:5px; font-weight:700;"></div>
     </div>
   </div>
 
@@ -150,6 +224,9 @@ body {
 </div>
 
 <script>
+// ------------------------------------------------------------------
+// Data sosial media & handle update mode terang/gelap berdasarkan jam
+// ------------------------------------------------------------------
 const socials = [
   { name: '@ArushiCaelis', content: '../../assets/X.png' },
   { name: '@ArushiCaelis', content: '../../assets/Instagram.png' },
@@ -159,48 +236,165 @@ const socials = [
 
 const container = document.getElementById('social-container');
 
-// 1. Render semua ke DOM agar browser melakukan pre-load gambar
+// 1. Render semua slide social (preload gambar, baik light/dark mode konsisten)
 socials.forEach((soc, index) => {
   const slide = document.createElement('div');
   slide.className = 'social-slide';
   slide.id = `slide-${index}`;
-  slide.style.display = 'none'; // Sembunyikan semua kecuali yang aktif
+  slide.style.display = 'none';
   slide.innerHTML = `
-    <div class="platform-icon"><img src="${soc.content}" alt="icon"></div>
+    <div class="platform-icon"><img src="${soc.content}" alt="icon" loading="eager"></div>
     <span class="social-handle">${soc.name}</span>
   `;
   container.appendChild(slide);
 });
 
 let currentIndex = 0;
-let secondsLeft = 60;
+let secondsLeft = 60;       // 60 detik per slide
+let timerInterval = null;
 
+// Fungsi untuk menampilkan slide tertentu
 function showSlide(index) {
   document.querySelectorAll('.social-slide').forEach(el => el.style.display = 'none');
-  document.getElementById(`slide-${index}`).style.display = 'flex';
+  const activeSlide = document.getElementById(`slide-${index}`);
+  if (activeSlide) activeSlide.style.display = 'flex';
 }
 
-function updateClock() {
-  const now = new Date();
-  document.getElementById('hours').textContent = String(now.getHours() % 12 || 12).padStart(2, '0');
-  document.getElementById('minutes').textContent = String(now.getMinutes()).padStart(2, '0');
-  
-  const days = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
-  const months = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
-  document.getElementById('date-display').textContent = `${days[now.getDay()]} · ${months[now.getMonth()]} ${now.getDate()}`;
-  
-  document.getElementById('progress-fill').style.width = (((60 - secondsLeft) / 60) * 100) + '%';
-  
-  if (--secondsLeft < 0) {
-    secondsLeft = 60;
-    currentIndex = (currentIndex + 1) % socials.length;
-    showSlide(currentIndex);
+// Update progres bar berdasarkan sisa detik
+function updateProgressBar() {
+  const percent = ((60 - secondsLeft) / 60) * 100;
+  const progressFill = document.getElementById('progress-fill');
+  if (progressFill) {
+    progressFill.style.width = percent + '%';
   }
 }
 
-// Inisialisasi
-showSlide(0);
-setInterval(updateClock, 1000);
+// timer untuk rotasi slide sosial (setiap 60 detik)
+function startSocialRotation() {
+  if (timerInterval) clearInterval(timerInterval);
+  timerInterval = setInterval(() => {
+    if (secondsLeft <= 1) {
+      // pindah ke slide berikutnya
+      secondsLeft = 60;
+      currentIndex = (currentIndex + 1) % socials.length;
+      showSlide(currentIndex);
+    } else {
+      secondsLeft--;
+    }
+    updateProgressBar();
+  }, 1000);
+}
+
+// Fungsi untuk menerapkan tema berdasarkan jam lokal (06:00 - 17:59 = terang, 18:00 - 05:59 = gelap)
+function applyThemeByTime() {
+  const now = new Date();
+  const currentHour = now.getHours(); // 0-23
+  
+  // logika: antara jam 6 (06:00) hingga 17:59 -> MODE TERANG
+  // jam 18:00 hingga 05:59 -> MODE GELAP
+  const isLightMode = (currentHour >= 6 && currentHour <= 17);
+  
+  // hapus kedua class terlebih dahulu lalu tambahkan sesuai kondisi
+  document.body.classList.remove('theme-light', 'theme-dark');
+  if (isLightMode) {
+    document.body.classList.add('theme-light');
+  } else {
+    document.body.classList.add('theme-dark');
+  }
+}
+
+// Update jam dan tanggal secara real-time, serta setiap menit cek ulang tema (bisa berubah saat melewati jam 18 atau 6)
+function updateClockAndDate() {
+  const now = new Date();
+  const hours = String(now.getHours() % 12 || 12).padStart(2, '0');
+  const minutes = String(now.getMinutes()).padStart(2, '0');
+  document.getElementById('hours').textContent = hours;
+  document.getElementById('minutes').textContent = minutes;
+  
+  const days = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
+  const months = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+  const dayName = days[now.getDay()];
+  const monthName = months[now.getMonth()];
+  const dateNum = now.getDate();
+  document.getElementById('date-display').textContent = `${dayName} · ${monthName} ${dateNum}`;
+  
+  // Cek tema tiap menit (sebenarnya cukup tiap update detik, namun aman dan ringan)
+  applyThemeByTime();
+}
+
+// Snooze button: mereset timer slide sosial ke slide pertama? sesuai request biasanya "snooze" menyegarkan atau restart? 
+// Pada desain jam interaktif: Snooze akan mereset timer slide sosial ke 0 (memulai ulang dari awal durasi untuk slide aktif) 
+// Bisa juga membuat slide saat ini kembali ke awal hitungan mundur 60 detik + efek visual.
+function handleSnooze() {
+  // Snooze akan me-reset countdown slide saat ini, tanpa mengganti index.
+  // Sehingga social handle tetap sama, namun progres bar direset penuh dan timer dimulai ulang 60 detik.
+  secondsLeft = 60;
+  updateProgressBar();
+  // Memberi efek animasi kecil pada base untuk feedback
+  const baseEl = document.querySelector('.clock-base');
+  if (baseEl) {
+    baseEl.style.transform = 'scale(0.98)';
+    setTimeout(() => { if(baseEl) baseEl.style.transform = ''; }, 150);
+  }
+  // Juga beri sedikit flash pada progress fill
+  const fillDiv = document.getElementById('progress-fill');
+  if (fillDiv) {
+    fillDiv.style.transition = 'none';
+    fillDiv.style.width = '0%';
+    setTimeout(() => { 
+      if(fillDiv) fillDiv.style.transition = 'width 1s linear'; 
+      updateProgressBar();
+    }, 30);
+  }
+  // reset timer internal tidak perlu direset karena setiap detik decrement tetap berjalan baik
+  // pastikan tidak double decrement, namun set interval terus berjalan, tidak masalah.
+}
+
+// Inisialisasi seluruh widget, preload, dan sinkronisasi tema otomatis
+function initWidget() {
+  // Mulai dengan slide pertama
+  showSlide(0);
+  // Set progres bar awal (secondsLeft = 60 -> width 0%)
+  updateProgressBar();
+  // Update jam & tema pertama kali
+  updateClockAndDate();
+  // Set interval tiap detik untuk jam, tanggal, dan mempertahankan rotasi timer slide (sudah ada startSocialRotation)
+  setInterval(() => {
+    updateClockAndDate();
+  }, 1000);
+  
+  // Jalankan rotasi sosial media (perubahan slide tiap 60 detik dan update progress)
+  startSocialRotation();
+  
+  // Pasang event snooze button
+  const snoozeBtn = document.getElementById('snoozeBtn');
+  if (snoozeBtn) {
+    snoozeBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      handleSnooze();
+    });
+  }
+  
+  // Opsional: Jika gambar gagal dimuat (karena path relatif), kita bisa fallback, tetapi biarkan.
+  // Tambahan: perbaiki path gambar jika memang perlu fallback dummy? TIDAK, karena sesuai kode asli 
+  // memakai '../../assets/...' dan '../Image/Semanggi.png'. Kami tidak mengubah struktur, hanya styling.
+  // Agar widget tetap elegan, tambahkan pengecekan error load image tidak mengganggu.
+  const allImgs = document.querySelectorAll('img');
+  allImgs.forEach(img => {
+    img.onerror = () => {
+      // Jika terjadi error misal file tidak ditemukan, fallback invisible atau tetap simpan siluet.
+      if(img.parentElement.classList.contains('platform-icon')) {
+        // optional: beri teks placeholder, tapi biarkan
+      }
+    };
+  });
+}
+
+// deteksi perubahan tema ekstra: ketika jam berganti dari 17:59 ke 18:00 atau 05:59 ke 06:00
+// updateClockAndDate sudah akan memanggil applyThemeByTime setiap detik, sehingga perubahan mode akan langsung terjadi di menit & detik yang tepat tanpa jeda.
+// Tambahan: efek transisi halus dari gelap ke terang jika waktu berganti (sudah ada CSS transisi pada komponen utama)
+// Agar tampilan sempurna, juga jika user me-resize atau interaksi khusus
+window.addEventListener('load', initWidget);
 </script>
 </body>
 </html>

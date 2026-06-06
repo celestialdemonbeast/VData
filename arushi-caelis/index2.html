@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ica | Official Talent Profile — Semanggi Style</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ica-primary: #96E04E;
+            --ica-secondary: #82CD3B;
+            --ica-vein: #6CA832;
+            --ica-outline: #3B5E1C;
+            --ica-bg-light: #F4F9EE;
+            --ica-card-hover: #e9f5df;
+            --dark-bg: #121A0F;
+            --dark-surface: #1E2A18;
+            --dark-surface-2: #2A3822;
+            --dark-text: #E6F0DC;
+            --dark-text-muted: #B8D0A4;
+        }
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background-color: #FBFEF7;
+            color: #1a2e1a;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.2s ease;
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, var(--ica-primary), var(--ica-secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .character-bg-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 80%;
+            background: radial-gradient(circle, rgba(150, 224, 78, 0.2) 0%, transparent 70%);
+            z-index: -1;
+        }
+        .social-btn {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-color: var(--ica-primary);
+            color: #4a7342;
+            background-color: white;
+        }
+        .social-btn:hover {
+            background: var(--ica-primary);
+            color: #1e3a1a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(150, 224, 78, 0.4);
+            border-color: var(--ica-secondary);
+        }
+        .section-title {
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+        .geometric-shape {
+            position: absolute;
+            opacity: 0.08;
+            z-index: -1;
+        }
+        .info-card {
+            transition: all 0.3s ease;
+            background: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(150, 224, 78, 0.2);
+        }
+        .info-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 30px -12px rgba(108, 168, 50, 0.2);
+            border-color: var(--ica-primary);
+            background-color: var(--ica-bg-light);
+        }
+        .card-label {
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.8rem;
+            color: #6CA832;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+            border-left: 3px solid var(--ica-primary);
+            padding-left: 0.75rem;
+        }
+        .card-value {
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: #1e3a1a;
+            word-break: break-word;
+        }
+        .list-bullet-custom {
+            list-style-type: disc;
+            padding-left: 1.25rem;
+            margin-top: 0.5rem;
+            color: #2c4b1e;
+        }
+        .list-bullet-custom li {
+            margin-bottom: 0.35rem;
+            font-size: 0.9rem;
+        }
+        .badge-leaf {
+            background-color: #e5f5d6;
+            color: #3B5E1C;
+            border-radius: 999px;
+            padding: 0.2rem 0.6rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .instagram-embed-wrapper {
+            background: white;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(150, 224, 78, 0.3);
+            height: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        .instagram-embed-wrapper:hover {
+            transform: translateY(-6px);
+            border-color: var(--ica-primary);
+            box-shadow: 0 20px 30px -12px rgba(108, 168, 50, 0.25);
+        }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 1rem;
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.1);
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 1rem;
+        }
+        .video-card {
+            transition: transform 0.3s ease;
+        }
+        .video-card:hover {
+            transform: translateY(-6px);
+        }
+
+        /* DARK MODE GLOBAL */
+        body.dark-mode {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+        }
+        body.dark-mode header {
+            background-color: rgba(18, 26, 15, 0.92);
+            border-bottom-color: rgba(150, 224, 78, 0.25);
+        }
+        body.dark-mode nav a {
+            color: #D0E8B6;
+        }
+        body.dark-mode .bg-white\/60 {
+            background-color: rgba(30, 42, 24, 0.85);
+            border-color: rgba(150, 224, 78, 0.4);
+        }
+        body.dark-mode .text-gray-900, body.dark-mode .text-gray-800 {
+            color: #F2FCE6;
+        }
+        body.dark-mode .text-gray-700 {
+            color: #CADFB5;
+        }
+        body.dark-mode .text-gray-600 {
+            color: #B1CF96;
+        }
+        body.dark-mode .social-btn {
+            background-color: rgba(30, 42, 24, 0.8);
+            border-color: var(--ica-vein);
+            color: #DDF2C8;
+        }
+        body.dark-mode .social-btn:hover {
+            background-color: var(--ica-primary);
+            color: #0F1A0C;
+        }
+        body.dark-mode #videos {
+            background-color: #141E10;
+        }
+        body.dark-mode .video-card h3 {
+            color: #E6FFD6;
+        }
+        body.dark-mode .info-card {
+            background-color: var(--dark-surface);
+            border-color: rgba(108, 168, 50, 0.5);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        body.dark-mode .info-card:hover {
+            background-color: var(--dark-surface-2);
+            border-color: var(--ica-primary);
+        }
+        body.dark-mode .card-label {
+            color: var(--ica-primary);
+            border-left-color: var(--ica-primary);
+        }
+        body.dark-mode .card-value {
+            color: #E2F0D2;
+        }
+        body.dark-mode .badge-leaf {
+            background-color: #2C3E22;
+            color: var(--ica-primary);
+        }
+        body.dark-mode .list-bullet-custom {
+            color: #CBE6B0;
+        }
+        body.dark-mode .instagram-embed-wrapper {
+            background-color: #1C2817;
+            border-color: rgba(150, 224, 78, 0.4);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+        body.dark-mode footer {
+            background-color: #0C1309;
+        }
+        body.dark-mode footer .text-gray-300 {
+            color: #A7C18B;
+        }
+        body.dark-mode .bg-\[\#3B5E1C\] {
+            background-color: #2C4A1A;
+        }
+        body.dark-mode .bg-gradient-to-b {
+            background: linear-gradient(135deg, #121A0F, #1C2A14);
+        }
+        body.dark-mode .character-bg-glow {
+            background: radial-gradient(circle, rgba(150, 224, 78, 0.25) 0%, transparent 70%);
+        }
+        body.dark-mode .geometric-shape {
+            opacity: 0.05;
+        }
+        body.dark-mode .border-green-100 {
+            border-color: rgba(108, 168, 50, 0.3);
+        }
+
+        /* ========== INSTAGRAM EMBED DARK MODE FIX ========== */
+        /* Mengubah tampilan blockquote Instagram agar gelap */
+        body.dark-mode .instagram-media {
+            background: #1C2817 !important;
+            box-shadow: 0 0 1px 0 rgba(150, 224, 78, 0.3), 0 1px 10px 0 rgba(0, 0, 0, 0.5) !important;
+        }
+        /* Reset background semua div di dalamnya biar transparan */
+        body.dark-mode .instagram-media div,
+        body.dark-mode .instagram-media p,
+        body.dark-mode .instagram-media span,
+        body.dark-mode .instagram-media a,
+        body.dark-mode .instagram-media section {
+            background-color: transparent !important;
+        }
+        /* Placeholder avatar (lingkaran abu-abu) diganti warna hijau gelap */
+        body.dark-mode .instagram-media [style*="background-color: #F4F4F4"] {
+            background-color: #2C3E22 !important;
+        }
+        /* Teks "View this post on Instagram" diubah jadi hijau semanggi */
+        body.dark-mode .instagram-media [style*="color:#3897f0"] {
+            color: #96E04E !important;
+        }
+        /* Teks nama akun dan timestamp dibuat lebih terang */
+        body.dark-mode .instagram-media [style*="color:#c9c8cd"] {
+            color: #B8D0A4 !important;
+        }
+        /* Warna untuk link akun */
+        body.dark-mode .instagram-media a {
+            color: #96E04E !important;
+        }
+        /* Perbaikan ikon-ikon dan garis abu-abu */
+        body.dark-mode .instagram-media [style*="border-top: 8px solid #F4F4F4"] {
+            border-top-color: #2C3E22 !important;
+        }
+        body.dark-mode .instagram-media [style*="border-right: 8px solid transparent"] {
+            border-right-color: transparent !important;
+        }
+        body.dark-mode .instagram-media [style*="border-left: 8px solid #F4F4F4"] {
+            border-left-color: #2C3E22 !important;
+        }
+        body.dark-mode .instagram-media [style*="background-color: #F4F4F4"]:not(div) {
+            background-color: #3A4C2E !important;
+        }
+        /* Teks "View more on Instagram" dll */
+        body.dark-mode .instagram-media p,
+        body.dark-mode .instagram-media a[style*="color:#c9c8cd"] {
+            color: #A7C18B !important;
+        }
+        /* Membuat ikon hati, komentar dll tetap terlihat baik */
+        body.dark-mode .instagram-media svg g {
+            fill: #D0E8B6 !important;
+        }
+        /* Hover effect di dalam embed tidak terpengaruh, tetap rapi */
+        .instagram-embed-wrapper {
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+<header class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-green-100/60 transition-colors duration-300">
+    <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <div class="text-2xl font-extrabold tracking-tighter text-gradient">Arushi Caelis</div>
+        <img src="Image/Semanggi.png" alt="" style="width: 25px; height: 25px;">
+        <div class="hidden md:flex space-x-8 text-sm font-semibold uppercase tracking-widest text-gray-700">
+            <a href="#profile" class="hover:text-[#96E04E] transition">Profile</a>
+            <a href="#videos" class="hover:text-[#96E04E] transition">Videos</a>
+            <a href="#data" class="hover:text-[#96E04E] transition">Data</a>
+            <a href="#instagram" class="hover:text-[#96E04E] transition">Instagram</a>
+        </div>
+        <button class="md:hidden text-gray-600">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+            </svg>
+        </button>
+    </nav>
+</header>
+
+<main class="pt-24">
+    <!-- Hero Section -->
+    <section id="profile" class="relative min-h-screen flex items-center overflow-hidden">
+        <div class="geometric-shape top-20 left-10 w-64 h-64 bg-[#96E04E] rounded-full blur-[100px] opacity-20"></div>
+        <div class="geometric-shape bottom-10 right-10 w-96 h-96 bg-[#82CD3B] rounded-full blur-[120px] opacity-20"></div>
+        <div class="container mx-auto px-6 flex flex-col lg:flex-row items-center gap-12">
+            <div class="relative flex-1 flex justify-center items-center z-0">
+                <div class="character-bg-glow"></div>
+                <div class="relative max-w-full h-auto transition-transform duration-700 hover:scale-105 group">
+                    <img src="Image/ica.png" alt="ica" class="w-full h-auto drop-shadow-2xl select-none" oncontextmenu="return false;">
+                </div>
+            </div>
+            <div class="flex-1 z-10">
+                <nav class="flex text-xs space-x-2 text-gray-500 font-bold mb-4 uppercase tracking-tighter">
+                    <a href="#" class="hover:text-[#6CA832]">Home</a>
+                    <span>/</span>
+                    <a href="#" class="hover:text-[#6CA832]">Talents</a>
+                    <span>/</span>
+                    <span class="text-[#3B5E1C]">Arushi Caelis</span>
+                </nav>
+                <h1 class="text-6xl md:text-8xl font-black text-gray-900 mb-2 leading-none">Arushi Caelis</h1>
+                <p class="text-xl font-bold text-[#6CA832] mb-8 italic tracking-wide">アルシ・カエリス [Arushi kaerisu] <img src="Image/Semanggi.png" alt="" style="width: 25px; height: 25px; display: inline-block;"></p>
+                <div class="bg-white/60 backdrop-blur-sm p-6 rounded-2xl border border-[#96E04E]/30 shadow-xl mb-8 transition-colors duration-300">
+                    <p class="text-2xl font-bold text-gray-800 mb-4">senyum sangat mentari cuih sebesar lautan, aku arushi caelis akan temani kalian, pedas seperti merica hijau seperti lumut, Hai aku Ica si paling imut</p>
+                    <p class="text-gray-700 leading-relaxed text-lg">"Ngguyu sumringah kaya srengenge sanadyan segara jero banget, aku Arushi Caelis bakal ngancani kowe kabeh. Pedhes kaya mrica ijo kaya lumut, Hai aku Ica sing paling imut!"</p>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                    <a href="https://discord.gg/KEsxGvy95b" target="_blank" class="social-btn flex items-center justify-between px-4 py-3 rounded-xl border-2 font-bold group transition text-sm">
+                        <span class="flex items-center gap-2"><img src="../assets/Discord.png" alt="Discord" class="w-5 h-5 object-contain"> Discord</span>
+                        <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
+                    <a href="https://twitter.com/ArushiCaelis" target="_blank" class="social-btn flex items-center justify-between px-4 py-3 rounded-xl border-2 font-bold group transition text-sm">
+                        <span class="flex items-center gap-2"><img src="../assets/X.png" alt="X" class="w-5 h-5 object-contain"> Twitter</span>
+                        <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
+                    <a href="https://instagram.com/ArushiCaelis" target="_blank" class="social-btn flex items-center justify-between px-4 py-3 rounded-xl border-2 font-bold group transition text-sm">
+                        <span class="flex items-center gap-2"><img src="../assets/Instagram.png" alt="Instagram" class="w-5 h-5 object-contain"> Instagram</span>
+                        <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
+                    <a href="https://trakteer.id/ArushiCaelis" target="_blank" class="social-btn flex items-center justify-between px-4 py-3 rounded-xl border-2 font-bold group transition text-sm">
+                        <span class="flex items-center gap-2"><img src="../assets/Traktear.png" alt="Trakteer" class="w-5 h-5 object-contain"> Trakteer</span>
+                        <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
+                    <a href="https://tako.id/ArushiCaelis" target="_blank" class="social-btn flex items-center justify-between px-4 py-3 rounded-xl border-2 font-bold group transition text-sm">
+                        <span class="flex items-center gap-2"><img src="../assets/Tako.png" alt="Tako" class="w-5 h-5 object-contain"> Tako</span>
+                        <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
+                    <div onclick="alert('Halaman Ini Belum Selesai - Akanaken')" class="social-btn coming-soon-btn flex items-center justify-between px-4 py-3 rounded-xl border-2 font-bold group transition text-sm">
+                        <span>✨ Asset Stream</span>
+                        <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Videos Section -->
+    <section id="videos" class="py-24 bg-white transition-colors duration-300">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col items-center mb-16">
+                <h2 class="section-title text-4xl md:text-6xl font-black text-center mb-4 text-gray-800">Recommended Videos</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-[#96E04E] to-[#82CD3B] rounded-full"></div>
+                <p class="text-gray-600 text-center max-w-2xl mt-4">Tonton video terbaru dari ica — konten seru, musik, dan gaming!</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="video-card"><div class="video-container"><iframe src="https://www.youtube.com/embed/njJJug3KUpg?si=K1k4_LNfa_YfcsrL" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><h3 class="text-xl font-bold mt-4 transition">✨ 【SINGING】Midnight Echo - Original Song</h3></div>
+                <div class="video-card"><div class="video-container"><iframe src="https://www.youtube.com/embed/nG4T28sMGv4?si=A69GmVEerzo05_cn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><h3 class="text-xl font-bold mt-4 transition">🎮 【GAMEPLAY】Neo-Cities Top Rank Challenge!</h3></div>
+                <div class="video-card"><div class="video-container"><iframe src="https://www.youtube.com/embed/fTtPtCYy9XY?si=W1CJ0qKz7c93q54i" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><h3 class="text-xl font-bold mt-4 transition">🍳 【OFFCOLLAB】Cooking Disaster with Friends!</h3></div>
+            </div>
+            <div class="mt-12 text-center"><a href="https://www.youtube.com/@ArushiCaelis" target="_blank" class="inline-block px-12 py-4 bg-[#3B5E1C] text-white font-bold rounded-full hover:bg-[#96E04E] transition-colors duration-300 shadow-md hover:shadow-lg">SUBSCRIBE ON YOUTUBE</a></div>
+        </div>
+    </section>
+
+    <!-- Data Section -->
+    <section id="data" class="py-24 bg-gradient-to-b from-[#FBFEF7] to-[#F2F9EA] transition-colors duration-300">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12"><h2 class="text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#6CA832] to-[#96E04E] inline-block">✦ プロフィール ✦</h2><div class="w-20 h-1 bg-gradient-to-r from-[#96E04E] to-[#82CD3B] mx-auto mt-3 rounded-full"></div></div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <div class="info-card p-5"><div class="card-label">Nama Lengkap</div><div class="card-value text-lg font-bold">Arushi Caelis</div></div>
+                <div class="info-card p-5"><div class="card-label">Panggilan</div><div class="card-value">Ica</div></div>
+                <div class="info-card p-5"><div class="card-label">Tanggal Lahir</div><div class="card-value">5 Juni</div></div>
+                <div class="info-card p-5"><div class="card-label">Tahun Lahir</div><div class="card-value">Tahun sekian</div></div>
+                <div class="info-card p-5"><div class="card-label">Tinggi</div><div class="card-value">144 cm <span class="text-sm text-[#6CA832]">AKU TINGGI</span></div></div>
+                <div class="info-card p-5"><div class="card-label">Usia</div><div class="card-value">Umur</div></div>
+                <div class="info-card p-5"><div class="card-label">Jenis</div><div class="card-value">Cwk</div></div>
+                <div class="info-card p-5"><div class="card-label">Spesies</div><div class="card-value">Lalapan Semanggi</div></div>
+                <div class="info-card p-5"><div class="card-label">Ras</div><div class="card-value">Manusia setengah manusia</div></div>
+                <div class="info-card p-5"><div class="card-label">Pekerjaan</div><div class="card-value">Pencari bibit semanggi</div></div>
+                <div class="info-card p-5"><div class="card-label">Genre</div><div class="card-value">Pemecah Telinga</div></div>
+                <div class="info-card p-5"><div class="card-label">Generasi</div><div class="card-value">Ini apaan weh?</div></div>
+                <div class="info-card p-5 col-span-1"><div class="card-label">🌐 Bahasa</div><div class="mt-2 space-y-2"><div class="flex justify-between items-center border-b border-green-100 pb-1"><span class="font-medium">Indonesia</span><span class="badge-leaf">10</span></div><div class="flex justify-between items-center border-b border-green-100 pb-1"><span class="font-medium">Jawa</span><span class="badge-leaf">10000000</span></div><div class="flex justify-between items-center border-b border-green-100 pb-1"><span class="font-medium">Jepang</span><span class="badge-leaf">1</span></div><div class="flex justify-between items-center"><span class="font-medium">Broken EN</span><span class="badge-leaf">1000</span></div></div></div>
+                <div class="info-card p-5"><div class="card-label">🎨 Hobi</div><ul class="list-bullet-custom"><li>Tidur</li><li>Teriak</li><li>Ngangong</li><li>Coret coret</li><li>Krauk krauk</li><li>Ngrepotin</li><li>Nyanyi</li><li>Cuihin Orang</li></ul></div>
+                <div class="info-card p-5"><div class="card-label">❤️ Suka</div><ul class="list-bullet-custom"><li>Pentol</li><li>Tanggal merah</li><li>Gratisan</li><li>Duid</li><li>Hal hal imut</li><li>Cuaca dingin</li><li>Ginjal MSang</li></ul></div>
+                <div class="info-card p-5"><div class="card-label">🚫 Sukan't</div><ul class="list-bullet-custom"><li>HORROR WEE</li><li>Bawang + Daunnya</li><li>Mati Listrik</li><li>Angka 413 &amp; 144</li><li>Dibilang Imut</li><li>Kerja</li><li>Mandi</li></ul></div>
+                <div class="info-card p-5"><div class="card-label">Logo</div><div class="card-value"><img src="Image/Semanggi.png" alt="" style="width: 25px; height: 25px;"></div></div>
+                <div class="info-card p-5"><div class="card-label">✨ Credit</div><div class="space-y-3 mt-2"><div><span class="font-semibold text-gray-700">Illustrator:</span><a href="https://x.com/Mashuako1" target="_blank" class="text-[#6CA832] hover:text-[#96E04E] underline decoration-[#82CD3B] ml-1">Mashuako</a></div><div><span class="font-semibold text-gray-700">Rigger:</span><a href="https://x.com/siauwadhie" target="_blank" class="text-[#6CA832] hover:text-[#96E04E] underline decoration-[#82CD3B] ml-1">SiauwAdhie</a></div></div></div>
+                <div class="info-card p-5"><div class="card-label">🌟 Karakter</div><div class="card-value text-sm italic">"Pemecah Telinga & Pencari bibit semanggi sejati"</div><div class="card-value">🍀 daun semanggi beruntung</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instagram Feed Section with Fixed Dark Mode -->
+    <section id="instagram" class="py-24 bg-white transition-colors duration-300">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col items-center mb-12">
+                    <h2 class="section-title text-4xl md:text-5xl font-black text-center mb-4 text-gray-800">📸
+                        INSTAGRAM FEED</h2>
+                    <div class="w-24 h-1 bg-gradient-to-r from-[#96E04E] to-[#82CD3B] rounded-full mb-2"></div>
+                    <p class="text-gray-600 text-center max-w-2xl mt-3">ini adalah Hasil Ilustrator dari gumiinst_ dan
+                        ngidolmaki — lihat langsung di Instagram!</p>
+                </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+                <!-- Embed 1 -->
+                <div class="instagram-embed-wrapper w-full"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DDW_5_XPVjo/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/p/DDW_5_XPVjo/?utm_source=ig_embed&amp;utm_campaign=loading" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div> </div> </div> <div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto 12px; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"></path></g></g></g></svg></div> <div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">View this post on Instagram</div> </div> <div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"> <div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div> </div> <div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;"></div> <div style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div> </div> <div style="margin-left: auto;"> <div style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);"></div> <div style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div> <div style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);"></div> </div> </div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;"></div> </div> </a> <p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/DDW_5_XPVjo/?utm_source=ig_embed&amp;utm_campaign=loading" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">A post shared by natsu | COMMISSION CLOSED (@gumiinst_)</a></p> </div></blockquote></div>
+                <!-- Embed 2 -->
+                <div class="instagram-embed-wrapper w-full"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DLotASzxLpT/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/p/DLotASzxLpT/?utm_source=ig_embed&amp;utm_campaign=loading" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div> </div> </div> <div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto 12px; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"></path></g></g></g></svg></div> <div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">View this post on Instagram</div> </div> <div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"> <div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div> </div> <div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;"></div> <div style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div> </div> <div style="margin-left: auto;"> <div style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);"></div> <div style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div> <div style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);"></div> </div> </div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;"></div> </div> </a> <p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/DLotASzxLpT/?utm_source=ig_embed&amp;utm_campaign=loading" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">A post shared by Rengga (@ngidolmaki)</a></p> </div></blockquote></div>
+                <!-- Embed 3 -->
+                <div class="instagram-embed-wrapper w-full"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/C8zg93Yy9ZR/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/p/C8zg93Yy9ZR/?utm_source=ig_embed&amp;utm_campaign=loading" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div> </div> </div> <div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto 12px; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"></path></g></g></g></svg></div> <div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">View this post on Instagram</div> </div> <div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"> <div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div> </div> <div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;"></div> <div style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div> </div> <div style="margin-left: auto;"> <div style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);"></div> <div style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div> <div style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);"></div> </div> </div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;"></div> </div> </a> <p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/C8zg93Yy9ZR/?utm_source=ig_embed&amp;utm_campaign=loading" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">A post shared by Rengga (@ngidolmaki)</a></p> </div></blockquote></div>
+            </div>
+            <div class="text-center mt-12">
+                <a href="https://instagram.com/ArushiCaelis" target="_blank" class="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-[#96E04E] to-[#82CD3B] text-white font-bold rounded-full hover:shadow-lg transition transform hover:scale-105">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85 0 3.204-.012 3.584-.069 4.85-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.85-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.85 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.85-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.667.072 4.947.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.667-.014 4.947-.072 4.358-.2 6.78-2.618 6.98-6.98.058-1.281.072-1.689.072-4.948 0-3.259-.014-3.667-.072-4.947-.2-4.358-2.618-6.78-6.98-6.98-1.281-.059-1.689-.073-4.948-.073zM12 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.44-.645 1.44-1.44s-.645-1.44-1.44-1.44z"/></svg>
+                    Follow @ArushiCaelis
+                </a>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="bg-[#1e2e14] py-12 text-white transition-colors duration-300">
+    <div class="container mx-auto px-6 text-center">
+        <div class="text-3xl font-black mb-6 tracking-tighter text-[#96E04E]">ica.</div>
+        <div class="flex flex-wrap justify-center gap-4 text-sm mb-6">
+            <a href="https://discord.gg/KEsxGvy95b" target="_blank" class="hover:text-[#96E04E] transition">Discord</a>
+            <a href="https://twitter.com/ArushiCaelis" target="_blank" class="hover:text-[#96E04E] transition">Twitter</a>
+            <a href="https://instagram.com/ArushiCaelis" target="_blank" class="hover:text-[#96E04E] transition">Instagram</a>
+            <a href="https://trakteer.id/ArushiCaelis" target="_blank" class="hover:text-[#96E04E] transition">Trakteer</a>
+            <a href="https://tako.id/ArushiCaelis" target="_blank" class="hover:text-[#96E04E] transition">Tako</a>
+        </div>
+        <p class="text-gray-300 text-sm mb-4">&copy; 2026 Arushi Caelis. All Rights Reserved.</p>
+    </div>
+</footer>
+
+<script async src="//www.instagram.com/embed.js"></script>
+<script>
+    function applyDarkModeByTime() {
+        const now = new Date();
+        const hours = now.getHours();
+        const isDark = (hours >= 18 || hours < 6);
+        if (isDark) document.body.classList.add('dark-mode');
+        else document.body.classList.remove('dark-mode');
+    }
+    applyDarkModeByTime();
+    setInterval(applyDarkModeByTime, 60000);
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) target.scrollIntoView({ behavior: 'smooth' });
+        });
+    });
+</script>
+</body>
+</html>
