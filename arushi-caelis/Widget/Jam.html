@@ -101,6 +101,8 @@ body {
   gap: 10px;
   z-index: 2;
   position: relative;
+  height: 60px; /* Menambah tinggi agar slide aman */
+  overflow: hidden;
 }
 
 .platform-icon {
@@ -112,14 +114,15 @@ body {
   justify-content: center;
   background: white;
   overflow: hidden;
+  flex-shrink: 0;
 }
 
-/* Memastikan gambar ikon pas di kotak */
 .platform-icon img { width: 100%; height: 100%; object-fit: cover; }
-.platform-icon svg { width: 20px; height: 20px; }
+.social-handle { font-family: 'Nunito', sans-serif; font-size: 16px; font-weight: 900; color: white; white-space: nowrap; }
 
-.social-handle { font-family: 'Nunito', sans-serif; font-size: 16px; font-weight: 900; color: white; }
-.social-slide { display: flex; align-items: center; gap: 10px; animation: popIn 0.45s cubic-bezier(0.34,1.56,0.64,1) both; }
+/* Container slide */
+#social-container { width: 100%; display: flex; align-items: center; justify-content: center; }
+.social-slide { display: flex; align-items: center; gap: 10px; width: 100%; justify-content: center; animation: popIn 0.45s cubic-bezier(0.34,1.56,0.64,1) both; }
 @keyframes popIn { from { opacity:0; transform: scale(0.7) translateY(8px); } to { opacity:1; transform: scale(1) translateY(0); } }
 
 .progress-track { position: absolute; bottom: 0; left: 0; height: 3px; background: rgba(255,255,255,0.12); width: 100%; border-radius: 0 0 28px 28px; }
@@ -129,50 +132,52 @@ body {
 <body>
 
 <div class="scene">
-  <div class="clover-right"><img src="../Image/Semanggi.png"></div>
-  <div class="clover-left"><img src="../Image/Semanggi.png"></div>
-  <!-- <div class="clover-right"><img src="https://github.com/celestialdemonbeast/VData/blob/main/arushi-caelis/Image/Semanggi.png?raw=true"></div>
-  <div class="clover-left"><img src="https://github.com/celestialdemonbeast/VData/blob/main/arushi-caelis/Image/Semanggi.png?raw=true"></div> -->
+  <div class="clover-right"><img src="https://github.com/celestialdemonbeast/VData/blob/main/arushi-caelis/Image/Semanggi.png?raw=true"></div>
+  <div class="clover-left"><img src="https://github.com/celestialdemonbeast/VData/blob/main/arushi-caelis/Image/Semanggi.png?raw=true"></div>
 
   <div class="clock-body">
     <button class="snooze-btn"></button>
     <div class="lcd-screen">
       <div class="time-display"><span id="hours">12</span>:<span id="minutes">00</span></div>
-      <div id="date-display" style="text-align:center; color:#3daa52; font-size:20px; margin-top:5px;"></div>
+      <div id="date-display" style="text-align:center; color:#3daa52; font-size:14px; margin-top:5px;"></div>
     </div>
   </div>
 
   <div class="clock-base">
     <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
-    <div id="social-content"></div>
+    <div id="social-container"></div>
   </div>
 </div>
 
 <script>
 const socials = [
-  { name: '@ArushiCaelis', type: 'img', content: '../../assets/X.png' },
-  { name: '@ArushiCaelis', type: 'img', content: '../../assets/Instagram.png' },
-  { name: 'trakteer.id/ArushiCaelis', type: 'img', content: '../../assets/Traktear.png' },
-  { name: 'tako.id/ArushiCaelis', type: 'img', content: '../../assets/Tako.png' }
+  { name: '@ArushiCaelis', content: '../../assets/X.png' },
+  { name: '@ArushiCaelis', content: '../../assets/Instagram.png' },
+  { name: 'trakteer.id/ArushiCaelis', content: '../../assets/Traktear.png' },
+  { name: 'tako.id/ArushiCaelis', content: '../../assets/Tako.png' }
 ];
 
-let currentIndex = 0;
-let secondsLeft = 60;
+const container = document.getElementById('social-container');
 
-function renderSocial() {
-  const soc = socials[currentIndex];
-  const container = document.getElementById('social-content');
-  
-  let iconHtml = soc.type === 'img' 
-    ? `<img src="${soc.content}" alt="icon">` 
-    : soc.content;
-
-  container.innerHTML = `
-    <div class="social-slide">
-      <div class="platform-icon">${iconHtml}</div>
-      <span class="social-handle">${soc.name}</span>
-    </div>
+// 1. Render semua ke DOM agar browser melakukan pre-load gambar
+socials.forEach((soc, index) => {
+  const slide = document.createElement('div');
+  slide.className = 'social-slide';
+  slide.id = `slide-${index}`;
+  slide.style.display = 'none'; // Sembunyikan semua kecuali yang aktif
+  slide.innerHTML = `
+    <div class="platform-icon"><img src="${soc.content}" alt="icon"></div>
+    <span class="social-handle">${soc.name}</span>
   `;
+  container.appendChild(slide);
+});
+
+let currentIndex = 0;
+let secondsLeft = 10;
+
+function showSlide(index) {
+  document.querySelectorAll('.social-slide').forEach(el => el.style.display = 'none');
+  document.getElementById(`slide-${index}`).style.display = 'flex';
 }
 
 function updateClock() {
@@ -187,13 +192,14 @@ function updateClock() {
   document.getElementById('progress-fill').style.width = (((60 - secondsLeft) / 60) * 100) + '%';
   
   if (--secondsLeft < 0) {
-    secondsLeft = 60;
+    secondsLeft = 10;
     currentIndex = (currentIndex + 1) % socials.length;
-    renderSocial();
+    showSlide(currentIndex);
   }
 }
 
-renderSocial();
+// Inisialisasi
+showSlide(0);
 setInterval(updateClock, 1000);
 </script>
 </body>
