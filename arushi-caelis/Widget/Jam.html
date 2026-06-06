@@ -173,7 +173,7 @@ socials.forEach((soc, index) => {
 });
 
 let currentIndex = 0;
-let secondsLeft = 10;
+let secondsLeft = 60;
 
 function showSlide(index) {
   document.querySelectorAll('.social-slide').forEach(el => el.style.display = 'none');
@@ -192,7 +192,7 @@ function updateClock() {
   document.getElementById('progress-fill').style.width = (((60 - secondsLeft) / 60) * 100) + '%';
   
   if (--secondsLeft < 0) {
-    secondsLeft = 10;
+    secondsLeft = 60;
     currentIndex = (currentIndex + 1) % socials.length;
     showSlide(currentIndex);
   }
