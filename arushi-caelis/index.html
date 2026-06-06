@@ -251,12 +251,25 @@
 
                 <!-- Main Character Image -->
                 <div class="relative flex-1 flex justify-center items-center z-0">
-                    <div class="character-bg-glow"></div>
-                    <img src="Image/ica.png" alt="ica Background"
-                        class="absolute w-[120%] h-auto opacity-10 blur-sm scale-110 pointer-events-none">
-                    <img src="Image/ica.png" alt="ica"
-                        class="relative max-w-full h-auto drop-shadow-2xl transition-transform duration-700 hover:scale-105">
-                </div>
+    <div class="character-bg-glow"></div>
+    
+    <img src="Image/ica.png" alt="ica Background"
+         class="absolute w-[120%] h-auto opacity-10 blur-sm scale-110 pointer-events-none select-none" 
+         oncontextmenu="return false;">
+    
+    <div class="relative max-w-full h-auto transition-transform duration-700 hover:scale-105 group">
+        
+        <img src="Image/ica.png" alt="ica" 
+             class="w-full h-auto drop-shadow-2xl select-none" 
+             oncontextmenu="return false;">
+        
+        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1' height='1'></svg>" 
+             alt="Proteksi"
+             class="absolute inset-0 w-full h-full cursor-default select-none"
+             oncontextmenu="return false;">
+             
+    </div>
+</div>
 
                 <!-- Right: Bio Info -->
                 <div class="flex-1 z-10">
