@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ica · HTML Grid Viewer — Semanggi Style</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ica-primary: #96E04E;
+            --ica-secondary: #82CD3B;
+            --ica-vein: #6CA832;
+            --ica-outline: #3B5E1C;
+            --ica-bg-light: #F4F9EE;
+            --ica-card-hover: #e9f5df;
+            --dark-bg: #121A0F;
+            --dark-surface: #1E2A18;
+            --dark-surface-2: #2A3822;
+            --dark-text: #E6F0DC;
+            --dark-text-muted: #B8D0A4;
+        }
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background-color: #FBFEF7;
+            color: #1a2e1a;
+            transition: background-color 0.3s ease, color 0.2s ease;
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, var(--ica-primary), var(--ica-secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .geometric-shape {
+            position: absolute;
+            opacity: 0.08;
+            z-index: -1;
+        }
+        .info-card {
+            transition: all 0.3s ease;
+            background: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(150, 224, 78, 0.2);
+        }
+        .info-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 30px -12px rgba(108, 168, 50, 0.2);
+            border-color: var(--ica-primary);
+            background-color: var(--ica-bg-light);
+        }
+        .card-label {
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.75rem;
+            color: #6CA832;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+            border-left: 3px solid var(--ica-primary);
+            padding-left: 0.75rem;
+        }
+        .badge-leaf {
+            background-color: #e5f5d6;
+            color: #3B5E1C;
+            border-radius: 999px;
+            padding: 0.2rem 0.6rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        .preview-container {
+            background: white;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(150, 224, 78, 0.3);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .preview-container:hover {
+            transform: translateY(-4px);
+            border-color: var(--ica-primary);
+            box-shadow: 0 20px 30px -12px rgba(108, 168, 50, 0.25);
+        }
+        .preview-iframe {
+            width: 100%;
+            height: 100%;
+            min-height: 500px;
+            border: none;
+            background: white;
+            border-radius: 1rem;
+        }
+        .file-card {
+            cursor: pointer;
+        }
+        .file-card.active {
+            background-color: var(--ica-bg-light);
+            border-left: 4px solid var(--ica-primary);
+            box-shadow: 0 8px 20px rgba(108, 168, 50, 0.15);
+        }
+        /* DARK MODE */
+        body.dark-mode {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+        }
+        body.dark-mode header {
+            background-color: rgba(18, 26, 15, 0.92);
+            border-bottom-color: rgba(150, 224, 78, 0.25);
+        }
+        body.dark-mode .info-card {
+            background-color: var(--dark-surface);
+            border-color: rgba(108, 168, 50, 0.5);
+        }
+        body.dark-mode .info-card:hover {
+            background-color: var(--dark-surface-2);
+        }
+        body.dark-mode .card-label {
+            color: var(--ica-primary);
+        }
+        body.dark-mode .badge-leaf {
+            background-color: #2C3E22;
+            color: var(--ica-primary);
+        }
+        body.dark-mode .preview-container {
+            background-color: var(--dark-surface);
+            border-color: rgba(150, 224, 78, 0.4);
+        }
+        body.dark-mode .preview-iframe {
+            background-color: #1A2416;
+        }
+        body.dark-mode .file-card.active {
+            background-color: var(--dark-surface-2);
+            border-left-color: var(--ica-primary);
+        }
+        body.dark-mode footer {
+            background-color: #0C1309;
+        }
+        .active-card-border {
+            border-left: 4px solid var(--ica-primary);
+            background-color: rgba(150, 224, 78, 0.1);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+<header class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-green-100/60 transition-colors duration-300">
+    <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <div class="text-2xl font-extrabold tracking-tighter text-gradient">🌿 HTML Viewer · ica grid</div>
+        <div class="hidden md:flex space-x-8 text-sm font-semibold uppercase tracking-widest text-gray-700">
+            <a href="#grid" class="hover:text-[#96E04E] transition">Grid</a>
+            <a href="#preview" class="hover:text-[#96E04E] transition">Preview</a>
+        </div>
+        <button id="darkModeToggle" class="text-gray-600 hover:text-[#96E04E] transition">🌓</button>
+    </nav>
+</header>
+
+<main class="pt-28 pb-16">
+    <!-- Hero mini -->
+    <div class="container mx-auto px-6 mb-10 text-center">
+        <h1 class="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#6CA832] to-[#96E04E]">📂 HTML Grid Viewer</h1>
+        <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mt-3">Klik kartu file HTML — konten akan langsung tampil di area preview. <span class="badge-leaf">✨ Deteksi otomatis</span></p>
+        <div class="w-24 h-1 bg-gradient-to-r from-[#96E04E] to-[#82CD3B] mx-auto mt-4 rounded-full"></div>
+    </div>
+
+    <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- SISI KIRI: DAFTAR FILE HTML (GRID CARD) -->
+            <div class="lg:col-span-1">
+                <div class="info-card p-5 sticky top-28">
+                    <div class="card-label">📁 DAFTAR FILE HTML</div>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mb-4 mt-1">*Ganti array <code class="bg-gray-100 dark:bg-gray-800 px-1 rounded">htmlFiles</code> sesuai kebutuhan</p>
+                    <div id="fileGrid" class="space-y-3 max-h-[65vh] overflow-y-auto pr-1 custom-scroll">
+                        <!-- card akan diisi JS -->
+                        <div class="text-center text-gray-400 py-6">Memuat daftar file...</div>
+                    </div>
+                    <div class="mt-5 pt-3 border-t border-green-100 dark:border-gray-700 text-xs text-gray-400">
+                        💡 <strong>Tips:</strong> File harus tersedia di server/path yang sama. Jika tidak muncul, periksa konsol atau gunakan Live Server.
+                    </div>
+                </div>
+            </div>
+
+            <!-- SISI KANAN: PREVIEW IFRAME -->
+            <div class="lg:col-span-2">
+                <div class="preview-container p-2">
+                    <div class="flex justify-between items-center p-3 border-b border-green-100 dark:border-gray-700">
+                        <div class="flex items-center gap-2">
+                            <span class="inline-block w-3 h-3 rounded-full bg-[#96E04E]"></span>
+                            <span class="inline-block w-3 h-3 rounded-full bg-[#82CD3B]"></span>
+                            <span class="inline-block w-3 h-3 rounded-full bg-[#6CA832]"></span>
+                            <span class="text-sm font-mono text-gray-600 dark:text-gray-300 ml-2" id="previewLabel">Belum ada file dipilih</span>
+                        </div>
+                        <button id="refreshPreview" class="badge-leaf hover:bg-[#96E04E] hover:text-white transition px-3 py-1 text-xs flex items-center gap-1">
+                            🔄 Refresh
+                        </button>
+                    </div>
+                    <div class="p-1 bg-gray-50 dark:bg-[#121A0F] rounded-xl">
+                        <iframe id="previewFrame" class="preview-iframe w-full rounded-xl" title="preview html" sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals allow-top-navigation"></iframe>
+                    </div>
+                    <div class="text-center text-xs text-gray-400 py-3">
+                        ⚡ Preview menggunakan iframe — beberapa halaman mungkin memblokir embedding karena kebijakan X-Frame-Options
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tambahan informasi -->
+    <div class="container mx-auto px-6 mt-16">
+        <div class="bg-gradient-to-r from-[#F4F9EE] to-white dark:from-[#1E2A18] dark:to-[#121A0F] rounded-2xl p-6 border border-[#96E04E]/30">
+            <h3 class="font-bold text-lg flex items-center gap-2">🍀 Cara menyesuaikan daftar HTML</h3>
+            <p class="text-sm mt-2">Buka kode JavaScript di bagian <code class="bg-gray-200 dark:bg-gray-800 px-1 rounded">// DAFTAR FILE HTML</code> dan ubah array <code>htmlFiles</code> sesuai dengan nama file dan path yang benar. Contoh:</p>
+            <pre class="bg-gray-800 text-green-300 p-3 rounded-lg text-xs mt-3 overflow-x-auto">{ name: "Halaman Utama", path: "index.html" },<br>{ name: "Profil", path: "profile.html" }</pre>
+            <p class="text-xs text-gray-500 mt-3">✨ Mode gelap aktif otomatis pada jam 18.00 – 06.00, atau klik tombol 🌓 di pojok kanan atas.</p>
+        </div>
+    </div>
+</main>
+
+<footer class="bg-[#1e2e14] py-8 text-white mt-12">
+    <div class="container mx-auto px-6 text-center">
+        <div class="text-2xl font-black tracking-tighter text-[#96E04E] mb-3">ica · HTML Viewer</div>
+        <p class="text-gray-300 text-sm">Grid berbasis Tailwind + gaya khas semanggi — klik untuk pratinjau langsung.</p>
+        <p class="text-gray-400 text-xs mt-4">&copy; 2025 Arushi Caelis — Semanggi Style</p>
+    </div>
+</footer>
+
+<script>
+    // ======================== DAFTAR FILE HTML ========================
+    // SILAHKAN UBAH DAFTAR INI SESUAI DENGAN FILE HTML ANDA
+    const htmlFiles = [
+        { name: "🏠 Beranda / Landing", path: "index.html" },
+        { name: "🌿 Profil Arushi Caelis", path: "profile.html" },
+        { name: "🎬 Galeri Video", path: "gallery.html" },
+        { name: "📞 Kontak & Sosial", path: "contact.html" },
+        { name: "✨ Komponen UI", path: "components.html" },
+        { name: "📊 Dashboard Statistik", path: "dashboard.html" },
+        { name: "💬 Testimoni Fans", path: "testimonials.html" },
+        { name: "🔧 Pengaturan", path: "settings.html" },
+        { name: "🎮 Streaming Tools", path: "stream.html" },
+        { name: "📝 Blog / Artikel", path: "blog.html" }
+    ];
+    // ==================================================================
+
+    let currentActivePath = null;
+    let currentActiveName = null;
+
+    const fileGrid = document.getElementById("fileGrid");
+    const previewFrame = document.getElementById("previewFrame");
+    const previewLabel = document.getElementById("previewLabel");
+    const refreshBtn = document.getElementById("refreshPreview");
+
+    // Fungsi memuat file ke iframe
+    function loadHTMLFile(path, displayName) {
+        if (!path) return;
+        currentActivePath = path;
+        currentActiveName = displayName;
+        previewLabel.innerText = `📄 ${displayName} (${path})`;
+        previewFrame.src = path;
+        // Optional: handle error jika iframe gagal muat
+        previewFrame.onerror = () => {
+            previewLabel.innerText = `❌ Gagal memuat: ${path}`;
+        };
+        previewFrame.onload = () => {
+            // tidak bisa akses cross-origin, hanya update label sukses
+            previewLabel.innerText = `✅ ${displayName} — dimuat`;
+            setTimeout(() => {
+                previewLabel.innerText = `📄 ${displayName} (${path})`;
+            }, 1500);
+        };
+    }
+
+    // Render grid card (dengan gaya info-card)
+    function renderFileGrid() {
+        if (!fileGrid) return;
+        if (htmlFiles.length === 0) {
+            fileGrid.innerHTML = '<div class="text-center text-gray-400 py-6">✨ Tidak ada file HTML terdaftar. Tambahkan di array htmlFiles.</div>';
+            return;
+        }
+
+        fileGrid.innerHTML = "";
+        htmlFiles.forEach((file, idx) => {
+            const card = document.createElement("div");
+            card.className = `info-card p-4 file-card transition-all duration-200 cursor-pointer hover:shadow-md`;
+            card.setAttribute("data-path", file.path);
+            card.setAttribute("data-name", file.name);
+            
+            // icon sederhana
+            const icon = file.path.includes("index") ? "🏠" : (file.path.includes("profile") ? "🌿" : "📄");
+            card.innerHTML = `
+                <div class="flex items-start gap-3">
+                    <div class="text-2xl">${icon}</div>
+                    <div class="flex-1">
+                        <div class="font-bold text-gray-800 dark:text-white">${escapeHtml(file.name)}</div>
+                        <div class="text-xs font-mono text-gray-500 dark:text-gray-400 break-all">${escapeHtml(file.path)}</div>
+                        <div class="mt-2 flex items-center gap-2">
+                            <span class="badge-leaf text-[10px]">klik untuk preview</span>
+                            <span class="text-[10px] text-[#6CA832]">↗</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            card.addEventListener("click", (e) => {
+                // hapus class active dari semua card
+                document.querySelectorAll(".file-card").forEach(c => {
+                    c.classList.remove("active-card-border");
+                    c.style.borderLeft = "none";
+                });
+                // beri border kiri hijau pada card aktif
+                card.style.borderLeft = `4px solid var(--ica-primary)`;
+                card.classList.add("active-card-border");
+                loadHTMLFile(file.path, file.name);
+            });
+            
+            fileGrid.appendChild(card);
+        });
+        
+        // opsional: jika ingin memuat file pertama otomatis
+        if (htmlFiles.length > 0 && !currentActivePath) {
+            const firstCard = fileGrid.querySelector(".file-card");
+            if (firstCard) firstCard.click();
+        }
+    }
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    // Refresh preview (reload iframe dengan current path)
+    refreshBtn.addEventListener("click", () => {
+        if (currentActivePath) {
+            const oldSrc = previewFrame.src;
+            previewFrame.src = "";
+            setTimeout(() => {
+                previewFrame.src = oldSrc;
+            }, 80);
+        } else {
+            alert("Belum ada file yang dipilih. Klik salah satu kartu HTML terlebih dahulu.");
+        }
+    });
+
+    // ======================== DARK MODE OTOMATIS & MANUAL ========================
+    function applyDarkModeByTime() {
+        const now = new Date();
+        const hours = now.getHours();
+        const isDark = (hours >= 18 || hours < 6);
+        if (isDark) document.body.classList.add('dark-mode');
+        else document.body.classList.remove('dark-mode');
+    }
+    // Toggle manual
+    const toggleBtn = document.getElementById("darkModeToggle");
+    let manualOverride = false;
+    toggleBtn.addEventListener("click", () => {
+        document.body.classList.toggle("dark-mode");
+        manualOverride = true;
+    });
+    // Jika tidak ada override, jalankan berdasarkan waktu
+    if (!manualOverride) {
+        applyDarkModeByTime();
+        setInterval(() => {
+            if (!manualOverride) applyDarkModeByTime();
+        }, 60000);
+    }
+    
+    // Smooth scroll untuk anchor
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) target.scrollIntoView({ behavior: 'smooth' });
+        });
+    });
+
+    // Inisialisasi render grid
+    renderFileGrid();
+
+    console.log("🌿 HTML Grid Viewer siap — ganti array htmlFiles dengan file HTML Anda sendiri.");
+</script>
+<!-- tambahan custom scroll tipis agar rapi -->
+<style>
+    .custom-scroll::-webkit-scrollbar {
+        width: 4px;
+    }
+    .custom-scroll::-webkit-scrollbar-track {
+        background: #e4e8d7;
+        border-radius: 10px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+        background: var(--ica-primary);
+        border-radius: 10px;
+    }
+    body.dark-mode .custom-scroll::-webkit-scrollbar-track {
+        background: #2a3822;
+    }
+    body.dark-mode .custom-scroll::-webkit-scrollbar-thumb {
+        background: var(--ica-vein);
+    }
+    .active-card-border {
+        border-left: 4px solid var(--ica-primary) !important;
+        background-color: rgba(150, 224, 78, 0.08);
+    }
+    body.dark-mode .active-card-border {
+        background-color: rgba(150, 224, 78, 0.15);
+    }
+</style>
+</body>
+</html>

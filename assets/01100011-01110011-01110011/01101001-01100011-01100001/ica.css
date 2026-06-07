@@ -1,0 +1,303 @@
+ 
+        :root {
+            --ica-primary: #96E04E;
+            --ica-secondary: #82CD3B;
+            --ica-vein: #6CA832;
+            --ica-outline: #3B5E1C;
+            --ica-bg-light: #F4F9EE;
+            --ica-card-hover: #e9f5df;
+            --dark-bg: #121A0F;
+            --dark-surface: #1E2A18;
+            --dark-surface-2: #2A3822;
+            --dark-text: #E6F0DC;
+            --dark-text-muted: #B8D0A4;
+        }
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background-color: #FBFEF7;
+            color: #1a2e1a;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.2s ease;
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, var(--ica-primary), var(--ica-secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .character-bg-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 80%;
+            background: radial-gradient(circle, rgba(150, 224, 78, 0.2) 0%, transparent 70%);
+            z-index: -1;
+        }
+        .social-btn {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-color: var(--ica-primary);
+            color: #4a7342;
+            background-color: white;
+        }
+        .social-btn:hover {
+            background: var(--ica-primary);
+            color: #1e3a1a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(150, 224, 78, 0.4);
+            border-color: var(--ica-secondary);
+        }
+        .section-title {
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+        .geometric-shape {
+            position: absolute;
+            opacity: 0.08;
+            z-index: -1;
+        }
+        .info-card {
+            transition: all 0.3s ease;
+            background: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(150, 224, 78, 0.2);
+        }
+        .info-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 30px -12px rgba(108, 168, 50, 0.2);
+            border-color: var(--ica-primary);
+            background-color: var(--ica-bg-light);
+        }
+        .card-label {
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.8rem;
+            color: #6CA832;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+            border-left: 3px solid var(--ica-primary);
+            padding-left: 0.75rem;
+        }
+        .card-value {
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: #1e3a1a;
+            word-break: break-word;
+        }
+        .list-bullet-custom {
+            list-style-type: disc;
+            padding-left: 1.25rem;
+            margin-top: 0.5rem;
+            color: #2c4b1e;
+        }
+        .list-bullet-custom li {
+            margin-bottom: 0.35rem;
+            font-size: 0.9rem;
+        }
+        .badge-leaf {
+            background-color: #e5f5d6;
+            color: #3B5E1C;
+            border-radius: 999px;
+            padding: 0.2rem 0.6rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .instagram-embed-wrapper {
+            background: white;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(150, 224, 78, 0.3);
+            height: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        .instagram-embed-wrapper:hover {
+            transform: translateY(-6px);
+            border-color: var(--ica-primary);
+            box-shadow: 0 20px 30px -12px rgba(108, 168, 50, 0.25);
+        }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 1rem;
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.1);
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 1rem;
+        }
+        .video-card {
+            transition: transform 0.3s ease;
+        }
+        .video-card:hover {
+            transform: translateY(-6px);
+        }
+
+        /* DARK MODE GLOBAL */
+        body.dark-mode {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+        }
+        body.dark-mode header {
+            background-color: rgba(18, 26, 15, 0.92);
+            border-bottom-color: rgba(150, 224, 78, 0.25);
+        }
+        body.dark-mode nav a {
+            color: #D0E8B6;
+        }
+        body.dark-mode .bg-white\/60 {
+            background-color: rgba(30, 42, 24, 0.85);
+            border-color: rgba(150, 224, 78, 0.4);
+        }
+        body.dark-mode .text-gray-900, body.dark-mode .text-gray-800 {
+            color: #F2FCE6;
+        }
+        body.dark-mode .text-gray-700 {
+            color: #CADFB5;
+        }
+        body.dark-mode .text-gray-600 {
+            color: #B1CF96;
+        }
+        body.dark-mode .social-btn {
+            background-color: rgba(30, 42, 24, 0.8);
+            border-color: var(--ica-vein);
+            color: #DDF2C8;
+        }
+        body.dark-mode .social-btn:hover {
+            background-color: var(--ica-primary);
+            color: #0F1A0C;
+        }
+        body.dark-mode #videos {
+            background-color: #141E10;
+        }
+        body.dark-mode .video-card h3 {
+            color: #E6FFD6;
+        }
+        body.dark-mode .info-card {
+            background-color: var(--dark-surface);
+            border-color: rgba(108, 168, 50, 0.5);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        body.dark-mode .info-card:hover {
+            background-color: var(--dark-surface-2);
+            border-color: var(--ica-primary);
+        }
+        body.dark-mode .card-label {
+            color: var(--ica-primary);
+            border-left-color: var(--ica-primary);
+        }
+        body.dark-mode .card-value {
+            color: #E2F0D2;
+        }
+        body.dark-mode .badge-leaf {
+            background-color: #2C3E22;
+            color: var(--ica-primary);
+        }
+        body.dark-mode .list-bullet-custom {
+            color: #CBE6B0;
+        }
+        body.dark-mode .instagram-embed-wrapper {
+            background-color: #1C2817;
+            border-color: rgba(150, 224, 78, 0.4);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+        body.dark-mode footer {
+            background-color: #0C1309;
+        }
+        body.dark-mode footer .text-gray-300 {
+            color: #A7C18B;
+        }
+        body.dark-mode .bg-\[\#3B5E1C\] {
+            background-color: #2C4A1A;
+        }
+        body.dark-mode .bg-gradient-to-b {
+            background: linear-gradient(135deg, #121A0F, #1C2A14);
+        }
+        body.dark-mode .character-bg-glow {
+            background: radial-gradient(circle, rgba(150, 224, 78, 0.25) 0%, transparent 70%);
+        }
+        body.dark-mode .geometric-shape {
+            opacity: 0.05;
+        }
+        body.dark-mode .border-green-100 {
+            border-color: rgba(108, 168, 50, 0.3);
+        }
+
+        /* ========== INSTAGRAM EMBED DARK MODE FIX ========== */
+        /* Mengubah tampilan blockquote Instagram agar gelap */
+        body.dark-mode .instagram-media {
+            background: #1C2817 !important;
+            box-shadow: 0 0 1px 0 rgba(150, 224, 78, 0.3), 0 1px 10px 0 rgba(0, 0, 0, 0.5) !important;
+        }
+        /* Reset background semua div di dalamnya biar transparan */
+        body.dark-mode .instagram-media div,
+        body.dark-mode .instagram-media p,
+        body.dark-mode .instagram-media span,
+        body.dark-mode .instagram-media a,
+        body.dark-mode .instagram-media section {
+            background-color: transparent !important;
+        }
+        /* Placeholder avatar (lingkaran abu-abu) diganti warna hijau gelap */
+        body.dark-mode .instagram-media [style*="background-color: #F4F4F4"] {
+            background-color: #2C3E22 !important;
+        }
+        /* Teks "View this post on Instagram" diubah jadi hijau semanggi */
+        body.dark-mode .instagram-media [style*="color:#3897f0"] {
+            color: #96E04E !important;
+        }
+        /* Teks nama akun dan timestamp dibuat lebih terang */
+        body.dark-mode .instagram-media [style*="color:#c9c8cd"] {
+            color: #B8D0A4 !important;
+        }
+        /* Warna untuk link akun */
+        body.dark-mode .instagram-media a {
+            color: #96E04E !important;
+        }
+        /* Perbaikan ikon-ikon dan garis abu-abu */
+        body.dark-mode .instagram-media [style*="border-top: 8px solid #F4F4F4"] {
+            border-top-color: #2C3E22 !important;
+        }
+        body.dark-mode .instagram-media [style*="border-right: 8px solid transparent"] {
+            border-right-color: transparent !important;
+        }
+        body.dark-mode .instagram-media [style*="border-left: 8px solid #F4F4F4"] {
+            border-left-color: #2C3E22 !important;
+        }
+        body.dark-mode .instagram-media [style*="background-color: #F4F4F4"]:not(div) {
+            background-color: #3A4C2E !important;
+        }
+        /* Teks "View more on Instagram" dll */
+        body.dark-mode .instagram-media p,
+        body.dark-mode .instagram-media a[style*="color:#c9c8cd"] {
+            color: #A7C18B !important;
+        }
+        /* Membuat ikon hati, komentar dll tetap terlihat baik */
+        body.dark-mode .instagram-media svg g {
+            fill: #D0E8B6 !important;
+        }
+        /* Hover effect di dalam embed tidak terpengaruh, tetap rapi */
+        .instagram-embed-wrapper {
+            transition: all 0.3s ease;
+        }
+    
+        .frame12-container {
+  width: 100%; /* Atau tentukan lebar spesifik, misal 800px */
+  max-width: 100%;
+}
+
+.frame12-container iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9; /* Menjaga rasio lebar:tinggi video */
+  display: block;
+}
