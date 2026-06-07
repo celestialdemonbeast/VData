@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>ica · Polling Livestream — Semanggi Style</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ica-primary: #96E04E;
+            --ica-secondary: #82CD3B;
+            --ica-vein: #6CA832;
+            --ica-outline: #3B5E1C;
+            --ica-bg-light: #F4F9EE;
+            --dark-bg: #121A0F;
+            --dark-surface: #1E2A18;
+            --dark-surface-2: #2A3822;
+            --dark-text: #E6F0DC;
+        }
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background-color: #FBFEF7;
+            color: #1a2e1a;
+            transition: background 0.3s, color 0.2s;
+        }
+        body.dark-mode {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, var(--ica-primary), var(--ica-secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .card-poll {
+            background: white;
+            border-radius: 1.75rem;
+            border: 1px solid rgba(150, 224, 78, 0.3);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.03);
+            transition: all 0.2s ease;
+        }
+        body.dark-mode .card-poll {
+            background: var(--dark-surface);
+            border-color: rgba(150, 224, 78, 0.4);
+        }
+        .badge-leaf {
+            background-color: #e5f5d6;
+            color: #3B5E1C;
+            border-radius: 999px;
+            padding: 0.2rem 0.7rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        body.dark-mode .badge-leaf {
+            background-color: #2C3E22;
+            color: var(--ica-primary);
+        }
+        .btn-primary {
+            background: linear-gradient(100deg, #96E04E, #7bc43a);
+            color: #1E3A0C;
+            font-weight: 700;
+            transition: 0.2s;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            filter: brightness(1.02);
+            box-shadow: 0 6px 12px -8px #96e04e80;
+        }
+        .btn-outline {
+            border: 1px solid var(--ica-primary);
+            background: transparent;
+            color: var(--ica-primary);
+            font-weight: 600;
+        }
+        .btn-outline:hover {
+            background: rgba(150, 224, 78, 0.1);
+        }
+        .option-row {
+            transition: all 0.1s;
+        }
+        .vote-result-bar {
+            background: linear-gradient(90deg, #96E04E, #b0ed6e);
+            border-radius: 40px;
+            height: 8px;
+        }
+        .custom-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: #e2e8cf;
+            border-radius: 10px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: var(--ica-primary);
+            border-radius: 10px;
+        }
+        body.dark-mode .custom-scroll::-webkit-scrollbar-track {
+            background: #2a3822;
+        }
+        button:disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+<main class="max-w-6xl mx-auto px-5 py-8 md:py-12">
+    <!-- Header style sama dengan original -->
+    <div class="text-center mb-10">
+        <div class="inline-flex items-center gap-2 bg-white/40 dark:bg-black/20 backdrop-blur-sm px-4 py-1 rounded-full border border-[#96E04E]/40 mb-4">
+            <span class="text-2xl">🌱</span>
+            <span class="text-xs font-bold uppercase tracking-wider text-[#6CA832]">ica poll · livestream ready</span>
+        </div>
+        <h1 class="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#6CA832] to-[#96E04E]">Widget Polling Interaktif</h1>
+        <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mt-4">Buat polling, bagikan tautan, kumpulkan suara penonton via file JSON — tanpa server, langsung di Netlify.</p>
+        <div class="w-24 h-1 bg-gradient-to-r from-[#96E04E] to-[#82CD3B] mx-auto mt-5 rounded-full"></div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- PANEL ADMIN (membuat & mengelola polling + import hasil) -->
+        <div class="card-poll p-6 lg:p-7 space-y-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <span class="badge-leaf">🎙️ STREAMER / ADMIN</span>
+                    <h2 class="text-2xl font-bold mt-1">Buat & kelola polling</h2>
+                </div>
+                <button id="resetAllAdmin" class="text-xs text-red-500 dark:text-red-400 underline hover:no-underline">↻ reset semua data</button>
+            </div>
+
+            <!-- Form polling -->
+            <div>
+                <label class="block text-sm font-bold uppercase tracking-wide text-gray-700 dark:text-gray-300 mb-1">📌 Judul polling</label>
+                <input type="text" id="pollTitle" class="w-full border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-2.5 bg-white dark:bg-[#121A0F] focus:ring-2 focus:ring-[#96E04E] outline-none" placeholder="Contoh: Pilih game favorit malam ini?" value="Stream hari ini: topik favoritmu?">
+            </div>
+
+            <div>
+                <label class="block text-sm font-bold uppercase tracking-wide text-gray-700 dark:text-gray-300 mb-2">⚙️ Opsi polling (minimal 2)</label>
+                <div id="optionsContainer" class="space-y-2 mb-3">
+                    <!-- dynamic options -->
+                </div>
+                <div class="flex gap-2 mt-2">
+                    <button id="addOptionBtn" class="text-sm bg-gray-100 dark:bg-[#2A3822] hover:bg-gray-200 dark:hover:bg-[#3a4e2e] px-3 py-1.5 rounded-full flex items-center gap-1">+ Tambah opsi</button>
+                    <button id="removeLastOption" class="text-sm text-gray-500 dark:text-gray-400 hover:text-red-500 px-3 py-1.5">✖ Hapus terakhir</button>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap gap-3 pt-2">
+                <button id="createPollBtn" class="btn-primary px-6 py-2.5 rounded-xl text-base shadow-md flex items-center gap-2">✨ Buat Polling & Generate Link</button>
+                <button id="clearLocalPollBtn" class="btn-outline px-5 py-2.5 rounded-xl">Hapus polling tersimpan</button>
+            </div>
+
+            <!-- Hasil generate link & share -->
+            <div id="shareArea" class="hidden bg-[#F4F9EE] dark:bg-[#1A2615] p-4 rounded-2xl space-y-3 transition-all">
+                <div class="flex items-center gap-2">
+                    <span class="text-lg">🔗</span>
+                    <span class="font-bold text-sm">Tautan polling untuk penonton:</span>
+                </div>
+                <div class="flex flex-wrap gap-2 items-center">
+                    <input type="text" id="pollLinkInput" readonly class="flex-1 bg-white dark:bg-black/40 border border-[#96E04E]/50 rounded-xl px-3 py-2 text-sm font-mono">
+                    <button id="copyLinkBtn" class="bg-[#96E04E] text-[#1e3a1e] px-4 py-2 rounded-xl text-sm font-bold">Salin link</button>
+                </div>
+                <p class="text-xs text-gray-500 dark:text-gray-400">📌 <strong>cara kerja:</strong> penonton buka link → pilih opsi → ekspor file .json → kirim file ke streamer (via chat / email). Streamer impor file di bawah untuk lihat hasil total.</p>
+            </div>
+
+            <!-- IMPORT VOTE DARI PENONTON -->
+            <div class="border-t border-dashed border-green-200 dark:border-gray-700 pt-5 mt-2">
+                <div class="flex items-center gap-2 mb-3">
+                    <span class="badge-leaf">📥 IMPORT SUARA</span>
+                    <span class="text-sm font-medium">Akumulasi hasil dari file JSON penonton</span>
+                </div>
+                <div class="flex flex-wrap gap-3 items-center">
+                    <label class="cursor-pointer bg-[#eef5e6] dark:bg-[#2c3924] px-5 py-2 rounded-xl text-sm font-semibold hover:bg-[#e2f0d4] transition">📂 Pilih file (.json)
+                        <input type="file" id="importVotesFile" accept=".json" class="hidden">
+                    </label>
+                    <button id="clearImportedResults" class="text-xs text-red-600 dark:text-red-400 underline">Hapus semua hasil impor</button>
+                </div>
+                <div id="importFeedback" class="text-xs mt-2 text-green-700 dark:text-green-300"></div>
+            </div>
+        </div>
+
+        <!-- PANEL HASIL & PREVIEW POLLING (ADMIN SISI KANAN) -->
+        <div class="card-poll p-6 lg:p-7 space-y-5">
+            <div class="flex justify-between items-center">
+                <div>
+                    <span class="badge-leaf">📊 HASIL AGREGAT (ADMIN)</span>
+                    <h2 class="text-2xl font-bold mt-1">Rekap suara masuk</h2>
+                </div>
+                <button id="exportMasterResults" class="text-sm bg-green-100 dark:bg-[#2E4022] px-3 py-1.5 rounded-full flex items-center gap-1">📎 Ekspor hasil (backup)</button>
+            </div>
+
+            <!-- preview polling aktif -->
+            <div id="activePollPreview" class="bg-[#F9FDF4] dark:bg-[#0f180c] rounded-xl p-4 border border-[#96E04E]/30">
+                <div class="flex justify-between">
+                    <span class="text-xs font-mono text-[#6CA832]">POLLING AKTIF</span>
+                    <span id="pollIdDisplay" class="text-[10px] font-mono text-gray-400">-</span>
+                </div>
+                <h3 id="previewPollTitle" class="font-bold text-lg mt-1">Belum ada polling dibuat</h3>
+                <div id="previewOptionsList" class="mt-3 space-y-2 text-sm"></div>
+            </div>
+
+            <!-- TABEL HASIL VOTING (dari import) -->
+            <div>
+                <div class="flex justify-between items-center mb-2">
+                    <h3 class="font-bold text-md flex items-center gap-1">🗳️ Rekap suara (impor dari penonton)</h3>
+                    <span id="totalVotesCount" class="badge-leaf">0 suara</span>
+                </div>
+                <div id="resultsContainer" class="space-y-3 max-h-72 overflow-y-auto custom-scroll pr-1">
+                    <div class="text-center text-gray-400 text-sm py-6">Belum ada suara diimpor. Streamer, minta penonton export file voting mereka.</div>
+                </div>
+                <button id="clearResultsBtn" class="mt-3 text-xs text-gray-400 hover:text-red-500 w-full text-center">reset data hasil lokal</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Panduan untuk VOTER (collapse) -->
+    <div class="mt-12 card-poll p-5 bg-white/60 dark:bg-black/20">
+        <details open>
+            <summary class="font-bold text-[#3B5E1C] dark:text-[#B8D0A4] cursor-pointer text-lg">📢 Cara voting untuk penonton (bagikan link ke mereka)</summary>
+            <div class="mt-3 text-sm space-y-2 text-gray-700 dark:text-gray-200">
+                <p>1️⃣ <strong>Buka link polling</strong> yang diberikan streamer (berisi data polling otomatis).</p>
+                <p>2️⃣ Pilih salah satu opsi, lalu klik <span class="bg-green-100 px-2 py-0.5 rounded">💾 Simpan & Ekspor vote</span> — otomatis mengunduh file <code>.json</code>.</p>
+                <p>3️⃣ Kirimkan file <code>.json</code> tersebut ke streamer (via chat, email, atau media sosial). Streamer tinggal impor file di panel kiri → hasil langsung bertambah!</p>
+                <p class="text-xs mt-2 bg-gray-100 dark:bg-gray-800 p-2 rounded-lg">✅ Semua data hanya disimpan lokal di perangkat masing-masing, Netlify hanya hosting static — privasi aman dan fleksibel.</p>
+            </div>
+        </details>
+    </div>
+</main>
+
+<footer class="bg-[#1e2e14] py-6 text-white mt-12 text-center text-sm">
+    <div class="container mx-auto px-4">🌿 ica · polling widget — semanggi style | tanpa server, realtime via file import/export</div>
+</footer>
+
+<script>
+    // --------------------------------------------------------------
+    // DATA STORE (localStorage untuk admin: polling aktif + hasil impor)
+    // --------------------------------------------------------------
+    let currentPoll = null;          // { id, title, options: string[] }
+    let importedVotes = [];           // array of { optionIndex, voterId? timestamp? }
+
+    // DOM elements
+    const optionsContainer = document.getElementById('optionsContainer');
+    const addOptionBtn = document.getElementById('addOptionBtn');
+    const removeLastBtn = document.getElementById('removeLastOption');
+    const createPollBtn = document.getElementById('createPollBtn');
+    const pollTitleInput = document.getElementById('pollTitle');
+    const shareArea = document.getElementById('shareArea');
+    const pollLinkInput = document.getElementById('pollLinkInput');
+    const copyLinkBtn = document.getElementById('copyLinkBtn');
+    const previewPollTitle = document.getElementById('previewPollTitle');
+    const previewOptionsList = document.getElementById('previewOptionsList');
+    const resultsContainer = document.getElementById('resultsContainer');
+    const totalVotesSpan = document.getElementById('totalVotesCount');
+    const clearResultsBtn = document.getElementById('clearResultsBtn');
+    const importVotesFile = document.getElementById('importVotesFile');
+    const importFeedback = document.getElementById('importFeedback');
+    const clearImportedResults = document.getElementById('clearImportedResults');
+    const exportMasterResults = document.getElementById('exportMasterResults');
+    const resetAllAdmin = document.getElementById('resetAllAdmin');
+    const clearLocalPollBtn = document.getElementById('clearLocalPollBtn');
+    const pollIdDisplay = document.getElementById('pollIdDisplay');
+
+    // Helper: render opsi di form admin (dinamis)
+    let currentOptions = ["Pilihan A", "Pilihan B", "Pilihan C"];
+
+    function renderOptionsInputs() {
+        optionsContainer.innerHTML = '';
+        currentOptions.forEach((opt, idx) => {
+            const div = document.createElement('div');
+            div.className = 'flex gap-2 items-center option-row';
+            div.innerHTML = `
+                <input type="text" value="${escapeHtml(opt)}" data-index="${idx}" class="option-text flex-1 border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-1.5 text-sm bg-white dark:bg-[#121A0F]">
+                <button class="remove-option text-red-400 hover:text-red-600 text-xl leading-5" data-idx="${idx}">✕</button>
+            `;
+            optionsContainer.appendChild(div);
+        });
+        // attach remove listeners
+        document.querySelectorAll('.remove-option').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const idx = parseInt(btn.dataset.idx);
+                if (!isNaN(idx) && currentOptions.length > 2) {
+                    currentOptions.splice(idx, 1);
+                    renderOptionsInputs();
+                } else if (currentOptions.length <= 2) {
+                    alert("Minimal harus ada 2 opsi.");
+                }
+            });
+        });
+        // attach change listeners
+        document.querySelectorAll('.option-text').forEach(inp => {
+            inp.addEventListener('change', (e) => {
+                const idx = parseInt(inp.dataset.index);
+                if (!isNaN(idx)) currentOptions[idx] = inp.value;
+            });
+        });
+    }
+
+    function escapeHtml(str) { return String(str).replace(/[&<>]/g, function(m){if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
+
+    // sync currentOptions dari input ketika diperlukan
+    function syncOptionsFromInputs() {
+        const inputs = document.querySelectorAll('.option-text');
+        if (inputs.length === currentOptions.length) {
+            inputs.forEach((inp, i) => { currentOptions[i] = inp.value || `Opsi ${i+1}`; });
+        }
+    }
+
+    // Create Poll: generate id & encoded data untuk link
+    function generatePollDataURL() {
+        syncOptionsFromInputs();
+        const title = pollTitleInput.value.trim() || "Polling Livestream";
+        const options = [...currentOptions].filter(opt => opt.trim() !== "");
+        if (options.length < 2) { alert("Minimal 2 opsi yang valid."); return null; }
+        const pollObj = {
+            id: 'poll_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6),
+            title: title,
+            options: options,
+            createdAt: new Date().toISOString()
+        };
+        // simpan polling aktif di localStorage admin
+        localStorage.setItem('semanggi_active_poll', JSON.stringify(pollObj));
+        currentPoll = pollObj;
+        // Buat link dengan base64 data polling (agar voter bisa melihat polling tanpa backend)
+        const dataEncoded = btoa(unescape(encodeURIComponent(JSON.stringify({ title: pollObj.title, options: pollObj.options }))));
+        const baseUrl = window.location.href.split('?')[0] + (window.location.href.includes('#') ? window.location.href.split('#')[0] : window.location.href);
+        const fullLink = `${baseUrl}?pollData=${dataEncoded}`;
+        pollLinkInput.value = fullLink;
+        shareArea.classList.remove('hidden');
+        // update preview
+        updateAdminPreview(pollObj);
+        // simpan ID display
+        pollIdDisplay.innerText = pollObj.id.slice(0,12)+"...";
+        return pollObj;
+    }
+
+    function updateAdminPreview(poll) {
+        if (!poll) return;
+        previewPollTitle.innerText = poll.title;
+        previewOptionsList.innerHTML = poll.options.map((opt, idx) => `<div class="flex items-center gap-2"><span class="w-5 h-5 rounded-full bg-[#96E04E]/30 text-center text-xs leading-5">${idx+1}</span><span>${escapeHtml(opt)}</span></div>`).join('');
+    }
+
+    // render hasil agregat (importedVotes)
+    function renderResults() {
+        if (!currentPoll || !currentPoll.options) {
+            resultsContainer.innerHTML = '<div class="text-center text-gray-400 text-sm py-6">Buat polling terlebih dahulu untuk melihat hasil.</div>';
+            totalVotesSpan.innerText = '0 suara';
+            return;
+        }
+        const votesCount = new Array(currentPoll.options.length).fill(0);
+        importedVotes.forEach(vote => {
+            if (vote.optionIndex >= 0 && vote.optionIndex < votesCount.length) votesCount[vote.optionIndex]++;
+        });
+        const total = votesCount.reduce((a,b)=>a+b,0);
+        totalVotesSpan.innerText = total + ' suara';
+        if (total === 0) {
+            resultsContainer.innerHTML = '<div class="text-gray-400 text-sm text-center py-6">✨ Belum ada suara diimpor. Impor file JSON dari penonton.</div>';
+            return;
+        }
+        let html = '';
+        currentPoll.options.forEach((opt, idx) => {
+            let count = votesCount[idx];
+            let percent = total ? Math.round((count/total)*100) : 0;
+            html += `
+                <div class="space-y-1">
+                    <div class="flex justify-between text-sm"><span>${escapeHtml(opt)}</span><span class="font-bold">${count} (${percent}%)</span></div>
+                    <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden"><div class="vote-result-bar" style="width: ${percent}%;"></div></div>
+                </div>
+            `;
+        });
+        resultsContainer.innerHTML = html;
+    }
+
+    // import file json (vote dari penonton)
+    function importVoteFromJSON(file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            try {
+                const data = JSON.parse(e.target.result);
+                if (data && typeof data.optionIndex === 'number' && data.pollTitle && currentPoll && currentPoll.title === data.pollTitle) {
+                    // cek apakah optionIndex valid
+                    if (data.optionIndex >= 0 && data.optionIndex < currentPoll.options.length) {
+                        importedVotes.push({ optionIndex: data.optionIndex, timestamp: Date.now(), voterRef: data.voterId || 'anon' });
+                        localStorage.setItem('semanggi_imported_votes', JSON.stringify(importedVotes));
+                        renderResults();
+                        importFeedback.innerText = `✅ Suara untuk "${currentPoll.options[data.optionIndex]}" berhasil diimpor! Total suara: ${importedVotes.length}`;
+                        setTimeout(() => importFeedback.innerText = '', 3000);
+                    } else { importFeedback.innerText = '❌ Opsi tidak sesuai dengan polling aktif.'; }
+                } else { importFeedback.innerText = '❌ File tidak valid / judul polling tidak cocok dengan polling saat ini.'; }
+            } catch(err) { importFeedback.innerText = '❌ File rusak / bukan format JSON vote.'; }
+        };
+        reader.readAsText(file);
+    }
+
+    // load dari localStorage admin
+    function loadPersistedData() {
+        const savedPoll = localStorage.getItem('semanggi_active_poll');
+        if (savedPoll) {
+            try {
+                currentPoll = JSON.parse(savedPoll);
+                updateAdminPreview(currentPoll);
+                pollTitleInput.value = currentPoll.title;
+                currentOptions = [...currentPoll.options];
+                renderOptionsInputs();
+                // regenerate link display tanpa mengganti data
+                const dataEncoded = btoa(unescape(encodeURIComponent(JSON.stringify({ title: currentPoll.title, options: currentPoll.options }))));
+                const baseUrl = window.location.href.split('?')[0];
+                pollLinkInput.value = `${baseUrl}?pollData=${dataEncoded}`;
+                shareArea.classList.remove('hidden');
+                pollIdDisplay.innerText = currentPoll.id.slice(0,12)+"...";
+            } catch(e) {}
+        }
+        const savedVotes = localStorage.getItem('semanggi_imported_votes');
+        if (savedVotes) {
+            try { importedVotes = JSON.parse(savedVotes); renderResults(); } catch(e){}
+        } else { renderResults(); }
+    }
+
+    // reset all data admin (poll + imported votes)
+    function resetAllData() {
+        if(confirm('Hapus seluruh polling aktif dan seluruh hasil suara yang sudah diimpor? Tidak dapat dikembalikan.')){
+            localStorage.removeItem('semanggi_active_poll');
+            localStorage.removeItem('semanggi_imported_votes');
+            currentPoll = null;
+            importedVotes = [];
+            currentOptions = ["Pilihan A", "Pilihan B", "Pilihan C"];
+            pollTitleInput.value = "Stream hari ini: topik favoritmu?";
+            renderOptionsInputs();
+            shareArea.classList.add('hidden');
+            previewPollTitle.innerText = 'Belum ada polling dibuat';
+            previewOptionsList.innerHTML = '';
+            pollIdDisplay.innerText = '-';
+            renderResults();
+            alert('Data admin sudah direset bersih.');
+        }
+    }
+
+    // ekspor hasil akumulasi (backup untuk streamer)
+    function exportMasterResultsFunc() {
+        if (!currentPoll) return alert('Tidak ada polling aktif untuk diekspor.');
+        const exportData = {
+            exportDate: new Date().toISOString(),
+            poll: currentPoll,
+            votes: importedVotes
+        };
+        const blob = new Blob([JSON.stringify(exportData, null, 2)], {type: 'application/json'});
+        const a = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        a.href = url;
+        a.download = `poll_results_${currentPoll.id}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+    }
+
+    // clear imported votes local
+    function clearImportedVotes() {
+        if(confirm('Hapus semua suara yang sudah diimpor? (tidak menghapus polling)')) {
+            importedVotes = [];
+            localStorage.setItem('semanggi_imported_votes', JSON.stringify(importedVotes));
+            renderResults();
+        }
+    }
+
+    // Inisialisasi & event listeners
+    function init() {
+        renderOptionsInputs();
+        loadPersistedData();
+
+        createPollBtn.addEventListener('click', () => {
+            const poll = generatePollDataURL();
+            if(poll) renderResults();
+        });
+
+        copyLinkBtn.addEventListener('click', () => {
+            pollLinkInput.select();
+            document.execCommand('copy');
+            alert('Link polling berhasil disalin! Bagikan ke penonton.');
+        });
+
+        clearResultsBtn.addEventListener('click', clearImportedVotes);
+        clearImportedResults.addEventListener('click', clearImportedVotes);
+        resetAllAdmin.addEventListener('click', resetAllData);
+        clearLocalPollBtn.addEventListener('click', () => {
+            if(confirm('Hapus polling aktif? Hasil impor akan tetap tersimpan (bisa dihapus terpisah).')){
+                localStorage.removeItem('semanggi_active_poll');
+                currentPoll = null;
+                shareArea.classList.add('hidden');
+                previewPollTitle.innerText = 'Belum ada polling dibuat';
+                previewOptionsList.innerHTML = '';
+                pollIdDisplay.innerText = '-';
+                renderResults();
+            }
+        });
+
+        importVotesFile.addEventListener('change', (e) => {
+            if(e.target.files && e.target.files[0]) importVoteFromJSON(e.target.files[0]);
+            e.target.value = '';
+        });
+
+        exportMasterResults.addEventListener('click', exportMasterResultsFunc);
+        addOptionBtn.addEventListener('click', () => {
+            if(currentOptions.length >= 10) return alert('Maksimal 10 opsi');
+            currentOptions.push(`Opsi ${currentOptions.length+1}`);
+            renderOptionsInputs();
+        });
+        removeLastBtn.addEventListener('click', () => {
+            if(currentOptions.length > 2) {
+                currentOptions.pop();
+                renderOptionsInputs();
+            } else alert('Minimal harus ada 2 opsi.');
+        });
+    }
+
+    // Dark mode manual berdasarkan waktu + toggle sederhana (dari style original)
+    function setupDarkMode() {
+        const toggleBtn = document.createElement('button');
+        toggleBtn.innerHTML = '🌓';
+        toggleBtn.className = 'fixed bottom-5 right-5 z-50 bg-white dark:bg-gray-800 shadow-lg rounded-full w-12 h-12 text-2xl border border-[#96E04E]';
+        document.body.appendChild(toggleBtn);
+        const isDark = localStorage.getItem('semanggi_dark');
+        if (isDark === 'true') document.body.classList.add('dark-mode');
+        toggleBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('semanggi_dark', document.body.classList.contains('dark-mode'));
+        });
+        // auto based on hour? optional: tapi biar user nyaman
+        const hour = new Date().getHours();
+        if (!localStorage.getItem('semanggi_dark') && (hour >= 18 || hour < 6)) document.body.classList.add('dark-mode');
+    }
+    setupDarkMode();
+    init();
+
+    // jika URL memiliki parameter pollData -> menampilkan voter UI? Kita buat voter popup atau langsung arahkan ke bagian penjelasan
+    // agar user-friendly: ketika parameter ?pollData= ada, kita buat modal atau alert untuk menampilkan polling dan export.
+    // Karena butuh widget voter yang intuitif, kita sediakan floating atau bagian khusus.
+    // tambahkan voter helper: jika ada parameter pollData, tampilkan panel vote langsung di atas atau di card.
+    (function checkVoterMode() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const pollDataB64 = urlParams.get('pollData');
+        if (pollDataB64) {
+            try {
+                const decodedStr = decodeURIComponent(escape(atob(pollDataB64)));
+                const pollInfo = JSON.parse(decodedStr);
+                if (pollInfo.title && pollInfo.options && pollInfo.options.length >= 2) {
+                    // tampilkan voter card yang bisa memilih & export JSON
+                    const voterCard = document.createElement('div');
+                    voterCard.className = 'fixed inset-0 bg-black/60 flex items-center justify-center z-[100] p-4';
+                    voterCard.id = 'voterModal';
+                    voterCard.innerHTML = `
+                        <div class="card-poll max-w-md w-full p-6 relative bg-white dark:bg-[#1E2A18] rounded-2xl shadow-2xl">
+                            <button id="closeVoterModal" class="absolute top-3 right-4 text-gray-500 text-2xl">&times;</button>
+                            <h3 class="text-2xl font-bold text-[#3B5E1C] dark:text-[#B8D0A4]">🗳️ Vote Sekarang</h3>
+                            <p class="text-sm mt-1 font-semibold">${escapeHtml(pollInfo.title)}</p>
+                            <div id="voterOptionsList" class="my-4 space-y-2"></div>
+                            <button id="submitVoteExport" class="btn-primary w-full py-2 rounded-xl">💾 Simpan & Ekspor Vote (.json)</button>
+                            <p class="text-xs text-center text-gray-500 mt-3">Setelah klik, file akan diunduh. Kirim ke streamer ya!</p>
+                        </div>
+                    `;
+                    document.body.appendChild(voterCard);
+                    const containerOpt = document.getElementById('voterOptionsList');
+                    pollInfo.options.forEach((opt, idx) => {
+                        const radioDiv = document.createElement('label');
+                        radioDiv.className = 'flex items-center gap-3 p-2 rounded-lg hover:bg-green-50 dark:hover:bg-[#2a3822] cursor-pointer';
+                        radioDiv.innerHTML = `<input type="radio" name="voterOption" value="${idx}" class="w-4 h-4 accent-[#96E04E]"><span>${escapeHtml(opt)}</span>`;
+                        containerOpt.appendChild(radioDiv);
+                    });
+                    document.getElementById('submitVoteExport').addEventListener('click', () => {
+                        const selected = document.querySelector('input[name="voterOption"]:checked');
+                        if (!selected) return alert('Pilih salah satu opsi terlebih dahulu!');
+                        const optionIndex = parseInt(selected.value);
+                        const voteData = {
+                            pollTitle: pollInfo.title,
+                            optionIndex: optionIndex,
+                            voterId: 'viewer_' + Date.now() + '_' + Math.random().toString(36).substr(2,4),
+                            votedAt: new Date().toISOString()
+                        };
+                        const blob = new Blob([JSON.stringify(voteData, null, 2)], {type: 'application/json'});
+                        const a = document.createElement('a');
+                        const url = URL.createObjectURL(blob);
+                        a.href = url;
+                        a.download = `vote_${voteData.voterId}.json`;
+                        a.click();
+                        URL.revokeObjectURL(url);
+                        alert('Vote tersimpan! File JSON sudah diunduh. Kirimkan file ini ke streamer agar suaramu terhitung.');
+                        document.getElementById('closeVoterModal')?.click();
+                    });
+                    document.getElementById('closeVoterModal').addEventListener('click', () => voterCard.remove());
+                }
+            } catch(e) { console.warn("invalid poll data link"); }
+        }
+    })();
+</script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+
+        :root {
+            --ica-primary: #96E04E;
+            --ica-secondary: #82CD3B;
+            --ica-vein: #6CA832;
+            --ica-outline: #3B5E1C;
+            --ica-bg-light: #F4F9EE;
+            --ica-card-hover: #e9f5df;
+            --dark-bg: #121A0F;
+            --dark-surface: #1E2A18;
+            --dark-surface-2: #2A3822;
+            --dark-text: #E6F0DC;
+            --dark-text-muted: #B8D0A4;
+        }
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background-color: #FBFEF7;
+            color: #1a2e1a;
+            transition: background-color 0.3s ease, color 0.2s ease;
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, var(--ica-primary), var(--ica-secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .geometric-shape {
+            position: absolute;
+            opacity: 0.08;
+            z-index: -1;
+        }
+        .info-card {
+            transition: all 0.3s ease;
+            background: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(150, 224, 78, 0.2);
+        }
+        .info-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 30px -12px rgba(108, 168, 50, 0.2);
+            border-color: var(--ica-primary);
+            background-color: var(--ica-bg-light);
+        }
+        .card-label {
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.75rem;
+            color: #6CA832;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+            border-left: 3px solid var(--ica-primary);
+            padding-left: 0.75rem;
+        }
+        .badge-leaf {
+            background-color: #e5f5d6;
+            color: #3B5E1C;
+            border-radius: 999px;
+            padding: 0.2rem 0.6rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        .preview-container {
+            background: white;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(150, 224, 78, 0.3);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .preview-container:hover {
+            transform: translateY(-4px);
+            border-color: var(--ica-primary);
+            box-shadow: 0 20px 30px -12px rgba(108, 168, 50, 0.25);
+        }
+        .preview-iframe {
+            width: 100%;
+            height: 100%;
+            min-height: 500px;
+            border: none;
+            background: white;
+            border-radius: 1rem;
+        }
+        .file-card {
+            cursor: pointer;
+        }
+        .file-card.active {
+            background-color: var(--ica-bg-light);
+            border-left: 4px solid var(--ica-primary);
+            box-shadow: 0 8px 20px rgba(108, 168, 50, 0.15);
+        }
+        /* DARK MODE */
+        body.dark-mode {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+        }
+        body.dark-mode header {
+            background-color: rgba(18, 26, 15, 0.92);
+            border-bottom-color: rgba(150, 224, 78, 0.25);
+        }
+        body.dark-mode .info-card {
+            background-color: var(--dark-surface);
+            border-color: rgba(108, 168, 50, 0.5);
+        }
+        body.dark-mode .info-card:hover {
+            background-color: var(--dark-surface-2);
+        }
+        body.dark-mode .card-label {
+            color: var(--ica-primary);
+        }
+        body.dark-mode .badge-leaf {
+            background-color: #2C3E22;
+            color: var(--ica-primary);
+        }
+        body.dark-mode .preview-container {
+            background-color: var(--dark-surface);
+            border-color: rgba(150, 224, 78, 0.4);
+        }
+        body.dark-mode .preview-iframe {
+            background-color: #1A2416;
+        }
+        body.dark-mode .file-card.active {
+            background-color: var(--dark-surface-2);
+            border-left-color: var(--ica-primary);
+        }
+        body.dark-mode footer {
+            background-color: #0C1309;
+        }
+        .active-card-border {
+            border-left: 4px solid var(--ica-primary);
+            background-color: rgba(150, 224, 78, 0.1);
+        }
+    
