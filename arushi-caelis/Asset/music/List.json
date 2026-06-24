@@ -1,0 +1,55 @@
+
+
+{
+  "songs": [
+    {
+      "title": "Bansanka",
+      "artist": "Arushi Caelis",
+      "src": "Asset/music/Bansanka.wav",
+      "cover": "🌙",
+      "duration": "3:35"
+    },
+    {
+      "title": "Hana no Tou",
+      "artist": "Arushi Caelis",
+      "src": "Asset/music/Hana no Tou.wav",
+      "cover": "🍀",
+      "duration": "4:35"
+    },
+    {
+      "title": "Haru",
+      "artist": "Arushi Caelis",
+      "src": "Asset/music/Haru.wav",
+      "cover": "🌊",
+      "duration": "4:29"
+    },
+    {
+      "title": "Kokurenbo",
+      "artist": "Arushi Caelis",
+      "src": "Asset/music/Kokurenbo.wav",
+      "cover": "✨",
+      "duration": "5:00"
+    },
+    {
+      "title": "Mawaru Sora Usagi",
+      "artist": "Arushi Caelis",
+      "src": "Asset/music/Mawaru Sora Usagi.wav",
+      "cover": "🌿",
+      "duration": "2:58"
+    },
+    {
+      "title": "Selamat Ulang Tahun",
+      "artist": "Arushi Caelis",
+      "src": "Asset/music/Selamat Ulang Tahun.wav",
+      "cover": "🎂",
+      "duration": "5:18"
+    },
+    {
+      "title": "Wo Ai Ni",
+      "artist": "Arushi Caelis",
+      "src": "Asset/music/Wo Ai Ni.wav",
+      "cover": "🌿",
+      "duration": "5:18"
+    }
+  ]
+}
