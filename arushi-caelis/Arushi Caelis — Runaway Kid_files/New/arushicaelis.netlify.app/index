@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/assets/logo-DPIUbK14.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Arushi Caelis — Hanya anak yang kabur dari habitatnya. Indie VTuber Indonesia. Watch streams, explore the character sheet, and support!" />
+  <meta name="keywords" content="Arushi Caelis, VTuber, Indonesia, indie vtuber, gaming, caelis" />
+  <meta property="og:title" content="Arushi Caelis" />
+  <meta property="og:description"
+    content="Hanya anak yang kabur dari habitatnya ☘️ Official Website of Arushi Caelis." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <title>Arushi Caelis — Runaway Kid</title>
+  <script type="module" crossorigin src="/assets/index-CSm7pW7K.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-BqwPAS8r.css">
+</head>
+
+<body>
+  <div id="root"></div>
+</body>
+
+</html>

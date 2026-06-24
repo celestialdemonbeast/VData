@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎵 Musik | Arushi Caelis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Gaya dasar dan tema */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background 0.5s, color 0.5s;
+            background: #fbfef7;
+            color: #1e2e14;
+            min-height: 100vh;
+        }
+        body.dark-mode {
+            background: #0f1a0a;
+            color: #e8f5e0;
+        }
+        /* Header transparan dengan blur */
+        .header-glass {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(150, 224, 78, 0.3);
+        }
+        .dark-mode .header-glass {
+            background: rgba(15, 26, 10, 0.9);
+            border-bottom-color: rgba(150, 224, 78, 0.2);
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #6CA832, #96E04E);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        /* Kartu player */
+        .player-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(150, 224, 78, 0.25);
+            border-radius: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+            transition: background 0.3s, border-color 0.3s;
+        }
+        .dark-mode .player-card {
+            background: rgba(30, 46, 20, 0.8);
+            border-color: rgba(150, 224, 78, 0.15);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+        /* Tombol kontrol */
+        .ctrl-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(150, 224, 78, 0.15);
+            color: #2d4a1a;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+            font-size: 1.4rem;
+        }
+        .ctrl-btn:hover {
+            background: #96E04E;
+            color: #0f1a0a;
+            transform: scale(1.05);
+        }
+        .dark-mode .ctrl-btn {
+            background: rgba(150, 224, 78, 0.2);
+            color: #c8f0a8;
+        }
+        .dark-mode .ctrl-btn:hover {
+            background: #96E04E;
+            color: #0f1a0a;
+        }
+        .ctrl-btn.active {
+            background: #96E04E;
+            color: #0f1a0a;
+        }
+        .ctrl-btn-lg {
+            width: 64px;
+            height: 64px;
+            font-size: 2rem;
+        }
+        /* Progress bar */
+        .progress-bar {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 6px;
+            border-radius: 999px;
+            background: rgba(150, 224, 78, 0.3);
+            outline: none;
+            transition: background 0.2s;
+        }
+        .progress-bar::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #96E04E;
+            cursor: pointer;
+            box-shadow: 0 0 8px rgba(150, 224, 78, 0.5);
+        }
+        .progress-bar::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #96E04E;
+            cursor: pointer;
+            border: none;
+        }
+        /* Daftar putar */
+        .playlist-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem 1rem;
+            border-radius: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+        .playlist-item:hover {
+            background: rgba(150, 224, 78, 0.08);
+            border-color: rgba(150, 224, 78, 0.2);
+        }
+        .playlist-item.active {
+            background: rgba(150, 224, 78, 0.15);
+            border-color: #96E04E;
+        }
+        .dark-mode .playlist-item:hover {
+            background: rgba(150, 224, 78, 0.05);
+        }
+        .dark-mode .playlist-item.active {
+            background: rgba(150, 224, 78, 0.1);
+            border-color: #6CA832;
+        }
+        .playlist-item .index {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: rgba(150, 224, 78, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #3B5E1C;
+            flex-shrink: 0;
+        }
+        .dark-mode .playlist-item .index {
+            background: rgba(150, 224, 78, 0.15);
+            color: #a8d080;
+        }
+        .playlist-item .info {
+            flex: 1;
+            min-width: 0;
+        }
+        .playlist-item .info .title {
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .playlist-item .info .artist {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+        .playlist-item .duration {
+            font-size: 0.8rem;
+            opacity: 0.6;
+            flex-shrink: 0;
+        }
+        .playlist-item .play-indicator {
+            color: #96E04E;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        /* Volume slider */
+        .volume-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 80px;
+            height: 4px;
+            border-radius: 999px;
+            background: rgba(150, 224, 78, 0.3);
+            outline: none;
+        }
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #96E04E;
+            cursor: pointer;
+        }
+        .volume-slider::-moz-range-thumb {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #96E04E;
+            cursor: pointer;
+            border: none;
+        }
+        /* Scrollbar playlist */
+        .playlist-scroll {
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+        .playlist-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        .playlist-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .playlist-scroll::-webkit-scrollbar-thumb {
+            background: #96E04E;
+            border-radius: 999px;
+        }
+        /* Cover art placeholder */
+        .cover-art {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            border-radius: 1.5rem;
+            background: linear-gradient(135deg, #96E04E, #6CA832);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            box-shadow: 0 12px 40px rgba(108, 168, 50, 0.3);
+        }
+        .dark-mode .cover-art {
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+        }
+        /* Responsive */
+        @media (max-width: 768px) {
+            .ctrl-btn-lg {
+                width: 56px;
+                height: 56px;
+                font-size: 1.6rem;
+            }
+            .volume-slider {
+                width: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="fixed w-full z-50 header-glass transition-colors duration-300">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-extrabold tracking-tighter text-gradient">Arushi Caelis</div>
+            <div class="hidden md:flex space-x-8 text-sm font-semibold uppercase tracking-widest text-gray-700 dark:text-gray-300">
+                <a href="index.html" class="hover:text-[#96E04E] transition">Profile</a>
+                <a href="index.html#videos" class="hover:text-[#96E04E] transition">Videos</a>
+                <a href="index.html#data" class="hover:text-[#96E04E] transition">Data</a>
+                <a href="music.html" class="text-[#96E04E] border-b-2 border-[#96E04E] pb-1">Musik</a>
+            </div>
+            <button class="md:hidden text-gray-600 dark:text-gray-300">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="pt-28 pb-12 px-4 md:px-6 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+
+            <!-- Kolom Kiri: Player -->
+            <div class="lg:col-span-2">
+                <div class="player-card p-6 md:p-8 sticky top-28">
+                    <!-- Cover Art -->
+                    <div class="cover-art" id="coverArt">
+                        🎵
+                    </div>
+
+                    <!-- Informasi Lagu -->
+                    <div class="mt-6 text-center">
+                        <h2 id="songTitle" class="text-2xl font-bold truncate">Pilih Lagu</h2>
+                        <p id="songArtist" class="text-gray-600 dark:text-gray-400 text-sm">-</p>
+                    </div>
+
+                    <!-- Progress Bar -->
+                    <div class="mt-4 flex items-center gap-3">
+                        <span id="currentTime" class="text-xs font-mono w-12 text-center">0:00</span>
+                        <input type="range" class="progress-bar flex-1" id="progressSlider" min="0" max="100" value="0">
+                        <span id="totalTime" class="text-xs font-mono w-12 text-center">0:00</span>
+                    </div>
+
+                    <!-- Kontrol -->
+                    <div class="flex items-center justify-center gap-3 mt-4">
+                        <button class="ctrl-btn" id="shuffleBtn" title="Acak">🔀</button>
+                        <button class="ctrl-btn" id="prevBtn" title="Sebelumnya">⏮</button>
+                        <button class="ctrl-btn ctrl-btn-lg" id="playBtn" title="Putar / Jeda">▶</button>
+                        <button class="ctrl-btn" id="nextBtn" title="Selanjutnya">⏭</button>
+                        <button class="ctrl-btn" id="repeatBtn" title="Ulangi">🔁</button>
+                    </div>
+
+                    <!-- Volume -->
+                    <div class="flex items-center justify-center gap-3 mt-4">
+                        <span class="text-sm">🔊</span>
+                        <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="80">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kolom Kanan: Playlist -->
+            <div class="lg:col-span-3">
+                <div class="player-card p-6 md:p-8">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold">📋 Daftar Putar</h3>
+                        <span id="songCount" class="text-sm opacity-60">0 lagu</span>
+                    </div>
+                    <div class="playlist-scroll" id="playlistContainer">
+                        <!-- Daftar lagu akan diisi oleh JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Informasi tambahan -->
+                <div class="mt-6 text-sm text-gray-500 dark:text-gray-400 text-center">
+                    <p>📂 Lagu diambil dari folder <code class="bg-gray-200 dark:bg-gray-800 px-2 py-1 rounded">/music/</code> di repositori ini.</p>
+                    <p class="mt-1">Ganti URL di array <code class="bg-gray-200 dark:bg-gray-800 px-2 py-1 rounded">playlist</code> pada JavaScript.</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#1e2e14] py-12 text-white mt-12 transition-colors duration-300">
+        <div class="container mx-auto px-6 text-center">
+            <div class="text-3xl font-black mb-6 tracking-tighter text-[#96E04E]">ica.</div>
+            <div class="flex flex-wrap justify-center gap-4 text-sm mb-6">
+                <a href="https://discord.gg/KEsxGvy95b" target="_blank" class="hover:text-[#96E04E] transition">Discord</a>
+                <a href="https://twitter.com/ArushiCaelis" target="_blank" class="hover:text-[#96E04E] transition">Twitter</a>
+                <a href="https://instagram.com/ArushiCaelis" target="_blank" class="hover:text-[#96E04E] transition">Instagram</a>
+                <a href="https://trakteer.id/ArushiCaelis" target="_blank" class="hover:text-[#96E04E] transition">Trakteer</a>
+                <a href="https://tako.id/ArushiCaelis" target="_blank" class="hover:text-[#96E04E] transition">Tako</a>
+            </div>
+            <p class="text-gray-300 text-sm">&copy; 2026 Arushi Caelis. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Pemutar Musik -->
+    <script>
+        (function() {
+            // ================================================================
+            // 1. DAFTAR LAGU — GANTI DENGAN FILE MP3/WAV ANDA
+            //    Simpan file di folder /music/ atau ubah path sesuai.
+            //    Gunakan URL raw GitHub jika perlu.
+            // ================================================================
+            const playlist = [
+                {
+                    title: "Contoh Lagu 1",
+                    artist: "Arushi Caelis",
+                    src: "music/sample1.mp3",   // Ganti dengan file Anda
+                    cover: "🎵"
+                },
+                {
+                    title: "Contoh Lagu 2",
+                    artist: "Arushi Caelis",
+                    src: "music/sample2.mp3",
+                    cover: "🎶"
+                },
+                {
+                    title: "Contoh Lagu 3",
+                    artist: "Arushi Caelis",
+                    src: "music/sample3.mp3",
+                    cover: "🎧"
+                }
+                // Tambahkan lebih banyak lagu di sini
+            ];
+
+            // ================================================================
+            // 2. ELEMEN DOM
+            // ================================================================
+            const audio = new Audio();
+            const playBtn = document.getElementById('playBtn');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const shuffleBtn = document.getElementById('shuffleBtn');
+            const repeatBtn = document.getElementById('repeatBtn');
+            const progressSlider = document.getElementById('progressSlider');
+            const volumeSlider = document.getElementById('volumeSlider');
+            const currentTimeEl = document.getElementById('currentTime');
+            const totalTimeEl = document.getElementById('totalTime');
+            const songTitle = document.getElementById('songTitle');
+            const songArtist = document.getElementById('songArtist');
+            const coverArt = document.getElementById('coverArt');
+            const playlistContainer = document.getElementById('playlistContainer');
+            const songCount = document.getElementById('songCount');
+
+            // ================================================================
+            // 3. STATE
+            // ================================================================
+            let currentIndex = 0;
+            let isPlaying = false;
+            let isShuffled = false;
+            let repeatMode = 'none'; // 'none', 'one', 'all'
+            let shuffleQueue = [];
+
+            // ================================================================
+            // 4. FUNGSI BANTU
+            // ================================================================
+            function formatTime(seconds) {
+                if (isNaN(seconds)) return '0:00';
+                const mins = Math.floor(seconds / 60);
+                const secs = Math.floor(seconds % 60);
+                return `${mins}:${secs.toString().padStart(2, '0')}`;
+            }
+
+            function getPlaylist() {
+                return isShuffled ? shuffleQueue : playlist;
+            }
+
+            function getCurrentSong() {
+                const list = getPlaylist();
+                return list[currentIndex] || null;
+            }
+
+            function loadSong(index) {
+                const list = getPlaylist();
+                if (index < 0 || index >= list.length) return;
+                currentIndex = index;
+                const song = list[currentIndex];
+                if (!song) return;
+
+                audio.src = song.src;
+                audio.load();
+                songTitle.textContent = song.title || 'Tanpa Judul';
+                songArtist.textContent = song.artist || 'Unknown';
+                coverArt.textContent = song.cover || '🎵';
+                updatePlaylistActive();
+                updateMediaSession(song);
+                // Reset progress
+                progressSlider.value = 0;
+                currentTimeEl.textContent = '0:00';
+                totalTimeEl.textContent = '0:00';
+                // Jika sedang diputar, lanjutkan
+                if (isPlaying) {
+                    audio.play().catch(() => {});
+                }
+            }
+
+            function playPause() {
+                if (!getCurrentSong()) return;
+                if (audio.paused) {
+                    audio.play().then(() => {
+                        isPlaying = true;
+                        updatePlayButton();
+                    }).catch(err => console.warn('Play gagal:', err));
+                } else {
+                    audio.pause();
+                    isPlaying = false;
+                    updatePlayButton();
+                }
+            }
+
+            function nextSong() {
+                const list = getPlaylist();
+                if (list.length === 0) return;
+                let nextIndex = currentIndex + 1;
+                if (nextIndex >= list.length) {
+                    if (repeatMode === 'all') nextIndex = 0;
+                    else return;
+                }
+                loadSong(nextIndex);
+                if (isPlaying) audio.play().catch(() => {});
+            }
+
+            function prevSong() {
+                const list = getPlaylist();
+                if (list.length === 0) return;
+                let prevIndex = currentIndex - 1;
+                if (prevIndex < 0) {
+                    if (repeatMode === 'all') prevIndex = list.length - 1;
+                    else return;
+                }
+                loadSong(prevIndex);
+                if (isPlaying) audio.play().catch(() => {});
+            }
+
+            function updatePlayButton() {
+                playBtn.textContent = isPlaying ? '⏸' : '▶';
+            }
+
+            function updatePlaylistActive() {
+                document.querySelectorAll('.playlist-item').forEach((el, idx) => {
+                    el.classList.toggle('active', idx === currentIndex);
+                });
+            }
+
+            function renderPlaylist() {
+                const list = getPlaylist();
+                songCount.textContent = `${list.length} lagu`;
+                playlistContainer.innerHTML = '';
+                list.forEach((song, index) => {
+                    const div = document.createElement('div');
+                    div.className = 'playlist-item';
+                    div.innerHTML = `
+                        <span class="index">${index + 1}</span>
+                        <div class="info">
+                            <div class="title">${song.title || 'Tanpa Judul'}</div>
+                            <div class="artist">${song.artist || 'Unknown'}</div>
+                        </div>
+                        <span class="duration">${song.duration || '--:--'}</span>
+                        ${index === currentIndex ? '<span class="play-indicator">▶</span>' : ''}
+                    `;
+                    div.addEventListener('click', () => {
+                        if (index === currentIndex && isPlaying) {
+                            // Jika lagu sama, toggle play/pause
+                            playPause();
+                        } else {
+                            loadSong(index);
+                            if (isPlaying) audio.play().catch(() => {});
+                            // Jika tidak sedang diputar, set isPlaying true dan play
+                            if (!isPlaying) {
+                                isPlaying = true;
+                                audio.play().catch(() => {});
+                                updatePlayButton();
+                            }
+                        }
+                    });
+                    playlistContainer.appendChild(div);
+                });
+                updatePlaylistActive();
+            }
+
+            function updateMediaSession(song) {
+                if ('mediaSession' in navigator) {
+                    navigator.mediaSession.metadata = new MediaMetadata({
+                        title: song.title || 'Tanpa Judul',
+                        artist: song.artist || 'Arushi Caelis',
+                        album: 'Arushi Caelis Music',
+                        artwork: [
+                            { src: 'Image/ica.png', sizes: '96x96', type: 'image/png' },
+                            { src: 'Image/ica.png', sizes: '128x128', type: 'image/png' },
+                            { src: 'Image/ica.png', sizes: '192x192', type: 'image/png' },
+                            { src: 'Image/ica.png', sizes: '512x512', type: 'image/png' }
+                        ]
+                    });
+                    // Set action handlers
+                    navigator.mediaSession.setActionHandler('play', () => playPause());
+                    navigator.mediaSession.setActionHandler('pause', () => playPause());
+                    navigator.mediaSession.setActionHandler('previoustrack', () => prevSong());
+                    navigator.mediaSession.setActionHandler('nexttrack', () => nextSong());
+                }
+            }
+
+            // ================================================================
+            // 5. EVENT LISTENER
+            // ================================================================
+
+            // Play / Pause
+            playBtn.addEventListener('click', playPause);
+
+            // Next / Prev
+            nextBtn.addEventListener('click', nextSong);
+            prevBtn.addEventListener('click', prevSong);
+
+            // Shuffle
+            shuffleBtn.addEventListener('click', () => {
+                isShuffled = !isShuffled;
+                shuffleBtn.classList.toggle('active', isShuffled);
+                if (isShuffled) {
+                    // Buat queue acak dari playlist asli
+                    const original = playlist.slice();
+                    shuffleQueue = [];
+                    while (original.length) {
+                        const rand = Math.floor(Math.random() * original.length);
+                        shuffleQueue.push(original.splice(rand, 1)[0]);
+                    }
+                    // Cari index lagu yang sedang diputar di queue baru
+                    const currentSong = getCurrentSong();
+                    if (currentSong) {
+                        const newIndex = shuffleQueue.findIndex(s => s.src === currentSong.src);
+                        if (newIndex !== -1) currentIndex = newIndex;
+                        else currentIndex = 0;
+                    } else {
+                        currentIndex = 0;
+                    }
+                } else {
+                    // Kembali ke playlist asli, cari lagu yang sama
+                    const currentSong = getCurrentSong();
+                    if (currentSong) {
+                        const newIndex = playlist.findIndex(s => s.src === currentSong.src);
+                        if (newIndex !== -1) currentIndex = newIndex;
+                        else currentIndex = 0;
+                    } else {
+                        currentIndex = 0;
+                    }
+                }
+                renderPlaylist();
+                loadSong(currentIndex);
+                if (isPlaying) audio.play().catch(() => {});
+            });
+
+            // Repeat
+            repeatBtn.addEventListener('click', () => {
+                const modes = ['none', 'one', 'all'];
+                const current = modes.indexOf(repeatMode);
+                const next = (current + 1) % modes.length;
+                repeatMode = modes[next];
+                repeatBtn.textContent = repeatMode === 'none' ? '🔁' : repeatMode === 'one' ? '🔂' : '🔁';
+                repeatBtn.classList.toggle('active', repeatMode !== 'none');
+            });
+
+            // Progress slider
+            progressSlider.addEventListener('input', () => {
+                if (audio.duration) {
+                    const seekTime = (progressSlider.value / 100) * audio.duration;
+                    audio.currentTime = seekTime;
+                }
+            });
+
+            // Volume slider
+            volumeSlider.addEventListener('input', () => {
+                audio.volume = volumeSlider.value / 100;
+            });
+
+            // Audio events
+            audio.addEventListener('timeupdate', () => {
+                if (audio.duration) {
+                    const percent = (audio.currentTime / audio.duration) * 100;
+                    progressSlider.value = percent;
+                    currentTimeEl.textContent = formatTime(audio.currentTime);
+                    totalTimeEl.textContent = formatTime(audio.duration);
+                }
+            });
+
+            audio.addEventListener('ended', () => {
+                if (repeatMode === 'one') {
+                    audio.currentTime = 0;
+                    audio.play().catch(() => {});
+                } else {
+                    nextSong();
+                }
+            });
+
+            audio.addEventListener('canplay', () => {
+                totalTimeEl.textContent = formatTime(audio.duration);
+            });
+
+            // ================================================================
+            // 6. INISIALISASI
+            // ================================================================
+            function init() {
+                // Set volume default
+                audio.volume = volumeSlider.value / 100;
+
+                // Jika playlist kosong, tambahkan contoh
+                if (playlist.length === 0) {
+                    playlist.push({ title: 'Contoh Lagu', artist: 'Arushi Caelis', src: 'music/sample.mp3' });
+                }
+
+                renderPlaylist();
+                loadSong(0);
+                // Set default repeat mode
+                repeatMode = 'none';
+                repeatBtn.textContent = '🔁';
+                // Shuffle default off
+                isShuffled = false;
+                shuffleBtn.classList.remove('active');
+                // Tampilkan jumlah lagu
+                songCount.textContent = `${playlist.length} lagu`;
+            }
+
+            init();
+
+            // ================================================================
+            // 7. DARK MODE OTOMATIS (sama seperti index.html)
+            // ================================================================
+            function applyDarkModeByTime() {
+                const now = new Date();
+                const hours = now.getHours();
+                const isDark = (hours >= 18 || hours < 6);
+                document.body.classList.toggle('dark-mode', isDark);
+            }
+            applyDarkModeByTime();
+            setInterval(applyDarkModeByTime, 60000);
+
+            // Smooth scroll untuk anchor (opsional)
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) target.scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+
+        })();
+    </script>
+
+</body>
+</html>
