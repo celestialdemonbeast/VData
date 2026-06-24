@@ -57,6 +57,9 @@
                             <span class="inline-block w-3 h-3 rounded-full bg-[#6CA832]"></span>
                             <span class="text-sm font-mono text-gray-600 dark:text-gray-300 ml-2" id="previewLabel">Belum ada file dipilih</span>
                         </div>
+                        <button id="openPage" class="badge-leaf hover:bg-[#96E04E] hover:text-white transition px-3 py-1 text-xs flex items-center gap-1">
+                        🚀 Buka Halaman
+                        </button>
                         <button id="refreshPreview" class="badge-leaf hover:bg-[#96E04E] hover:text-white transition px-3 py-1 text-xs flex items-center gap-1">
                             🔄 Refresh
                         </button>
@@ -211,6 +214,15 @@
             alert("Belum ada file yang dipilih. Klik salah satu kartu HTML terlebih dahulu.");
         }
     });
+
+    const openBtn = document.getElementById("openPage");
+openBtn.addEventListener("click", () => {
+    if (currentActivePath) {
+        window.open(currentActivePath, '_blank');
+    } else {
+        alert("Belum ada file yang dipilih. Klik salah satu kartu HTML terlebih dahulu.");
+    }
+});
 
     // ======================== DARK MODE OTOMATIS & MANUAL ========================
     function applyDarkModeByTime() {
